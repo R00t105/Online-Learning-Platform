@@ -21,6 +21,11 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                        .HasColumnType("varchar")
                        .HasMaxLength(300);
 
+            builder.HasMany<Quiz>(c => c.Quizzes)
+                   .WithOne(q => q.Course)
+                   .HasForeignKey(q => q.CourseId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
