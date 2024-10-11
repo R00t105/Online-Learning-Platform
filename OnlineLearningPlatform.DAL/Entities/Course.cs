@@ -14,5 +14,6 @@ namespace OnlineLearningPlatform.DAL.Entities
         public DateTime? CreationDate { get; set; }
         public int TrackId { get; set; }
         public virtual Track Track { get; set; }
+        public virtual ICollection<Content> Contents { get; set; }
     }
 }
