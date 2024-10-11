@@ -11,6 +11,10 @@ namespace OnlineLearningPlatform.DAL.Entities
     {
         public DateTime RegistrationDate { get; set; }
         public DateOnly BirthDate { get; set; }
-        
+
+        public virtual ICollection<Course> Courses { get; set; } = new HashSet<Course>();
+
+        public virtual ICollection<Enrollment> Enrollments { get; set; } = new HashSet<Enrollment>();
+
     }
 }

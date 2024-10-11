@@ -25,5 +25,7 @@ namespace OnlineLearningPlatform.DAL.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Content> Contents { get; set; }
         public DbSet<ContentText> ContentTexts { get; set; }
+
+        public DbSet<Enrollment> Enrollments { get; set; }
     }
 }
