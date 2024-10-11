@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.DAL.Data;
+using OnlineLearningPlatform.DAL.Entities;
 
 namespace OnlineLearningPlatform.UI
 {
@@ -15,7 +17,7 @@ namespace OnlineLearningPlatform.UI
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
             });
-
+            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
