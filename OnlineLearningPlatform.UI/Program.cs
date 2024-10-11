@@ -17,7 +17,7 @@ namespace OnlineLearningPlatform.UI
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
             });
-            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

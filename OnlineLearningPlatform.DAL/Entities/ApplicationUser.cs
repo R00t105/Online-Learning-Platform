@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Entities
 {
-    public class User:IdentityUser<int>
+    public class ApplicationUser:IdentityUser<int>
     {
         public DateTime RegistrationDate { get; set; }
+        public DateOnly BirthDate { get; set; }
+        
     }
 }
