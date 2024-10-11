@@ -14,6 +14,8 @@ namespace OnlineLearningPlatform.DAL.Entities
         public int TotalDegree { get; set; }
         public int CourseId { get; set; }
         public virtual Course Course { get; set; }
+        public virtual ICollection<Degree> Degrees { get; set; } = new HashSet<Degree>();
+
         public virtual ICollection<QuizQuestion> QuizQuestions { get; set; } = new HashSet<QuizQuestion>();
     }
 }
