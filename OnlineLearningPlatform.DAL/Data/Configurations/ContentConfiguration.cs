@@ -13,7 +13,6 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Content> builder)
         {
-            // Relationship
             builder.HasMany<ContentText>(c => c.ContentTexts)
                     .WithOne(ct => ct.Content)
                     .HasForeignKey(ct => ct.ContentId)
