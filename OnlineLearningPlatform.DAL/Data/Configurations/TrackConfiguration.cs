@@ -10,16 +10,20 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
         {
             builder.HasKey(t => t.Id);
 
+            builder.Property(t => t.Id)
+               .ValueGeneratedOnAdd()
+               .UseIdentityColumn(1, 1);
+
             builder.Property(t => t.Name)
-                   .HasColumnType("varchar(25)")
-                   .IsRequired();
+               .HasColumnType("varchar(25)")
+               .IsRequired();
 
             builder.Property(t => t.Description)
-                   .HasColumnType("varchar(100)")
-                   .IsRequired(false);
+               .HasColumnType("varchar(100)")
+               .IsRequired(false);
 
             builder.Property(t => t.CreationDate)
-                   .IsRequired(false);
+               .IsRequired(false);
         }
     }
 }

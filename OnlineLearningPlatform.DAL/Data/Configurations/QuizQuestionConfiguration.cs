@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineLearningPlatform.DAL.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -11,6 +9,10 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
         public void Configure(EntityTypeBuilder<QuizQuestion> builder)
         {
             builder.HasKey(qq => qq.Id);
+
+            builder.Property(qq => qq.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(1, 1);
 
             builder.Property(qq => qq.Question)
                 .HasColumnType("varchar(100)")

@@ -10,6 +10,10 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
         {
             builder.HasKey(co => co.Id);
 
+            builder.Property(c => c.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(1, 1);
+
             builder.Property(co => co.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn(1, 1);

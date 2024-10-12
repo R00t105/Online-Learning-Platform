@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -14,6 +9,10 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
         public void Configure(EntityTypeBuilder<Result> builder)
         {
             builder.HasKey(r => r.Id);
+
+            builder.Property(r => r.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(1, 1);
 
             builder.Property(r => r.Id)
                 .ValueGeneratedOnAdd()
