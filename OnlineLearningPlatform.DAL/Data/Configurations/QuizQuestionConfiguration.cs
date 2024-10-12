@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineLearningPlatform.DAL.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -23,5 +20,6 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                 .WithMany(q => q.QuizQuestions)
                 .HasForeignKey(qq => qq.QuizId)
                 .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
