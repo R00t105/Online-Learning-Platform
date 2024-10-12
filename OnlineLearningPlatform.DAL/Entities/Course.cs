@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Entities
 {
@@ -13,10 +10,10 @@ namespace OnlineLearningPlatform.DAL.Entities
         public string? Description { get; set; }
         public DateTime? CreationDate { get; set; }
         public int TrackId { get; set; }
+
         public virtual Track Track { get; set; }
-        public virtual ICollection<Content> Contents { get; set; }
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; } = new HashSet<ApplicationUser>();
-        public virtual ICollection<Enrollment> Enrollments { get; set; } = new HashSet<Enrollment>();
-        public virtual ICollection<Quiz> Quizzes { get; set; } = new HashSet<Quiz>();
+        public virtual ICollection<Content> Contents { get; set; } = new List<Content>();
+        public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        public virtual ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
     }
 }

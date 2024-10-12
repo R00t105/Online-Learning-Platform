@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineLearningPlatform.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -13,19 +8,23 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
+            builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Title)
-                       .HasColumnType("varchar")
-                       .HasMaxLength(100);
+               .HasColumnType("varchar(100)")
+               .IsRequired();
 
             builder.Property(c => c.Description)
-                       .HasColumnType("varchar")
-                       .HasMaxLength(300);
+               .HasColumnType("varchar(300)")
+               .IsRequired(false);
+            
+            builder.Property(c => c.CreationDate)
+               .IsRequired(false);
 
-            builder.HasMany<Quiz>(c => c.Quizzes)
-                   .WithOne(q => q.Course)
-                   .HasForeignKey(q => q.CourseId)
-                   .OnDelete(DeleteBehavior.Cascade);
-
+            builder.HasOne<Track>(navigationExpression: c => c.Track)
+                .WithMany(t => t.Courses)
+                .HasForeignKey(c => c.TrackId)
+                .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
         }
     }
 }

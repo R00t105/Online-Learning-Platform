@@ -8,10 +8,11 @@ namespace OnlineLearningPlatform.DAL.Entities
 {
     public class QuizQuestion
     {
-        public int QuizQuestionId { get; set; }
+        public int Id { get; set; }
         public string Question { get; set; }
         public int QuizId { get; set; }
+
         public virtual Quiz Quiz { get; set; }
-        public virtual ICollection<QuizAnswer> QuizAnswers { get; set; } = new HashSet<QuizAnswer>();
+        public virtual ICollection<QuestionAnswer> QuizAnswers { get; set; } = new List<QuestionAnswer>();
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Entities
 {
@@ -13,6 +10,7 @@ namespace OnlineLearningPlatform.DAL.Entities
         public string? SubTitle { get; set; }
         public string? Paragraph { get; set; }
         public int ContentId { get; set; }
+
         public virtual Content Content { get; set; }
 
     }

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineLearningPlatform.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -13,6 +8,20 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ContentText> builder)
         {
+            builder.HasKey(ct => ct.Id);
+
+            builder.Property(ct => ct.Title)
+                .HasColumnType("varchar(100)")
+                .IsRequired(false);
+
+            builder.Property(ct => ct.SubTitle)
+                .HasColumnType("varchar(100)")
+                .IsRequired(false);
+
+            builder.Property(ct => ct.Paragraph)
+                .HasColumnType("varchar(400)")
+                .IsRequired(false);
+
             builder.HasOne<Content>(ct => ct.Content)
                     .WithMany(c => c.ContentTexts)
                     .HasForeignKey(ct => ct.ContentId)

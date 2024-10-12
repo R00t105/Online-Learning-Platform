@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineLearningPlatform.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.DAL.Data.Configurations
 {
@@ -13,14 +8,18 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Track> builder)
         {
-            builder.Property(t => t.Name)
-                       .HasColumnType("varchar")
-                       .HasMaxLength(25);
+            builder.HasKey(t => t.Id);
 
+            builder.Property(t => t.Name)
+                   .HasColumnType("varchar(25)")
+                   .IsRequired();
 
             builder.Property(t => t.Description)
-                       .HasColumnType("varchar")
-                       .HasMaxLength(100);
+                   .HasColumnType("varchar(100)")
+                   .IsRequired(false);
+
+            builder.Property(t => t.CreationDate)
+                   .IsRequired(false);
         }
     }
 }

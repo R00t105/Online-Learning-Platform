@@ -13,10 +13,15 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<QuizQuestion> builder)
         {
-            builder.HasMany<QuizAnswer>(qq => qq.QuizAnswers)
-                   .WithOne(qa => qa.QuizQuestion)
-                   .HasForeignKey(qa => qa.QuizQuestionId)
-                   .OnDelete(DeleteBehavior.Cascade);
-        }
+            builder.HasKey(qq => qq.Id);
+
+            builder.Property(qq => qq.Question)
+                .HasColumnType("varchar(100)")
+                .IsRequired();
+
+            builder.HasOne<Quiz>(qq => qq.Quiz)
+                .WithMany(q => q.QuizQuestions)
+                .HasForeignKey(qq => qq.QuizId)
+                .OnDelete(DeleteBehavior.Cascade);
     }
 }

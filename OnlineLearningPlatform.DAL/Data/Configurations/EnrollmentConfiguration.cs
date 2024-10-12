@@ -13,30 +13,28 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Enrollment> builder)
         {
-        
+            builder.HasKey(e => new { e.ApplicationUserId, e.CourseId });
+
             builder.Property(e => e.ApplicationUserId)
-                .IsRequired(); 
+                .IsRequired();
 
             builder.Property(e => e.CourseId)
-                .IsRequired(); 
-
-            builder.Property(e => e.EnrolmentDate)
-                .IsRequired(false); 
-
-            builder.Property(e => e.ProgressId)
                 .IsRequired();
 
-            builder.Property(e => e.ProgressState)
-                .HasMaxLength(50) 
-                .IsRequired(false); 
+            builder.Property(e => e.EnrollmentDate)
+                .IsRequired(false);
 
-            builder.Property(e => e.CompilationDate)
-                .IsRequired(false); 
+            builder.Property(e => e.CompletionDate)
+                .IsRequired(false);
 
             builder.Property(e => e.ProgressPercentage)
-                .IsRequired();
+                .HasDefaultValue(0)
+                .IsRequired(false);
 
-            builder.HasKey(e => new { e.ApplicationUserId, e.CourseId });
+            builder.Property(e => e.ProgressState)
+                .HasDefaultValue(ProgressState.NotStarted.ToString())
+                .IsRequired(false);
+
 
             builder.HasOne<ApplicationUser>(app => app.ApplicationUser)
                 .WithMany(en => en.Enrollments) 
