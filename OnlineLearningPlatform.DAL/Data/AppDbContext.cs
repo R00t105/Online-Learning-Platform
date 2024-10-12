@@ -22,7 +22,7 @@ namespace OnlineLearningPlatform.DAL.Data
         public DbSet<Content> Contents { get; set; }
         public DbSet<ContentText> ContentTexts { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Degree> Degrees { get; set; }
+        public DbSet<Result> Results { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<QuizQuestion> QuizQuestions { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }

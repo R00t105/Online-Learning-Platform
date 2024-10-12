@@ -12,7 +12,7 @@ namespace OnlineLearningPlatform.DAL.Entities
         public int CourseId { get; set; }
 
         public virtual Course Course { get; set; }
-        public virtual ICollection<Degree> Degrees { get; set; } = new List<Degree>();
+        public virtual ICollection<Result> Results { get; set; } = new List<Result>();
         public virtual ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
     }
 }

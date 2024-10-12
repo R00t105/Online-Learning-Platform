@@ -10,6 +10,10 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
         {
             builder.HasKey(c => c.Id);
 
+            builder.Property(c => c.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(1, 1);
+
             builder.Property(c => c.Title)
                .HasColumnType("varchar(100)")
                .IsRequired();

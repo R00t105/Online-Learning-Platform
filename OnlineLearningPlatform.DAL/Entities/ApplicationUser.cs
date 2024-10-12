@@ -9,6 +9,6 @@ namespace OnlineLearningPlatform.DAL.Entities
         public DateTime? RegistrationDate { get; set; }
         public DateOnly? BirthDate { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
-        public virtual ICollection<Degree> Degrees { get; set; } = new List<Degree>();
+        public virtual ICollection<Result> Results { get; set; } = new List<Result>();
     }
 }
