@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnlineLearningPlatform.BLL.Interfaces;
+using OnlineLearningPlatform.BLL.Repositories;
 using OnlineLearningPlatform.DAL.Data;
 using OnlineLearningPlatform.DAL.Entities;
 
@@ -19,6 +21,10 @@ namespace OnlineLearningPlatform.UI
 
             // Identity Register
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
+            // Generic Repository Register
+            //builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
