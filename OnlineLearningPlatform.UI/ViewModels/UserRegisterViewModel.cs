@@ -4,7 +4,8 @@ namespace OnlineLearningPlatform.UI.ViewModels
 {
     public class UserRegisterViewModel
     {
-        public string Name { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
 
         [DataType(DataType.EmailAddress)]

@@ -1,19 +1,51 @@
 ﻿<!-- Navbar Start -->
+
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-    <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+
+    <a asp-controller="Home" asp-action="Index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>ULearn</h2>
     </a>
+
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
+
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="#" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">About</a>
-            <a href="#" class="nav-item nav-link">Courses</a>
-            <a href="#" class="nav-item nav-link">Tracks</a>
+            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Home</a>
+            <a asp-controller="Course" asp-action="Index" class="nav-item nav-link">Courses</a>
+            <a asp-controller="Track" asp-action="Index" class="nav-item nav-link">Tracks</a>
         </div>
-        <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            <div class="dropdown d-none d-lg-block">
+                <a class="btn btn-primary py-4 px-lg-4 dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome, @User.Identity.Name <i class="fa fa-user ms-3"></i>
+                </a>
+
+                <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
+                    <li>
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                            <i class="fa fa-user-circle me-2"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                            <i class="fa fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+        }
+        
     </div>
+
 </nav>
 <!-- Navbar End -->
