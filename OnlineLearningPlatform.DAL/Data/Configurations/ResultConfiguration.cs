@@ -23,8 +23,9 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
 
 
             builder.Property(r => r.AttemptDateTime)
-                .HasDefaultValue(DateTime.Now)
-                .IsRequired();
+                .HasColumnType("datetime2")
+               .HasDefaultValueSql("GETDATE()")
+               .IsRequired();
 
             builder.HasOne(r => r.ApplicationUser)
                    .WithMany(ap => ap.Results) 

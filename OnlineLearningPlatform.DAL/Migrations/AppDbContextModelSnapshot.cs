@@ -209,7 +209,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     b.Property<DateTime?>("RegistrationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 13, 21, 59, 46, 764, DateTimeKind.Local).AddTicks(8443));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -297,7 +297,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 13, 21, 59, 46, 765, DateTimeKind.Local).AddTicks(9186));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
                         .HasColumnType("varchar(300)");
@@ -330,7 +330,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     b.Property<DateTime?>("EnrollmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 13, 21, 59, 46, 766, DateTimeKind.Local).AddTicks(5209));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int?>("ProgressPercentage")
                         .ValueGeneratedOnAdd()
@@ -435,7 +435,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     b.Property<DateTime>("AttemptDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 13, 21, 59, 46, 768, DateTimeKind.Local).AddTicks(1248));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("Mark")
                         .HasColumnType("int");
@@ -464,16 +464,17 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreationDate")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 13, 21, 59, 46, 768, DateTimeKind.Local).AddTicks(9240));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(400)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(25)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 

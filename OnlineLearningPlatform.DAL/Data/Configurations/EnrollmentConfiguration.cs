@@ -17,8 +17,9 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                 .IsRequired();
 
             builder.Property(e => e.EnrollmentDate)
-                .HasDefaultValue(DateTime.Now)
-                .IsRequired(false);
+               .HasColumnType("datetime2")
+               .HasDefaultValueSql("GETDATE()")
+               .IsRequired(false);
 
             builder.Property(e => e.CompletionDate)
                 .IsRequired(false);

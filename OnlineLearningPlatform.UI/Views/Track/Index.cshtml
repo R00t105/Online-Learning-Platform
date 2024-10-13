@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Track>
+@{
+    ViewData["Title"] = "Tracks";
+}
+
+<!-- Track Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <!-- Added justify-content-center to center the row -->
+            @if (Model.ToList().Count <= 0)
+            {
+                <div class="text-center col-lg-12 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3 mt-5">
+                        <div class="p-4">
+                            <h1>There are no Tracks</h1>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @foreach (var track in Model)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.1s">
+                        <a asp-controller="Track" asp-action="ShowCoursesByTrack" asp-route-trackId="@track.Id">
+                            <div class="service-item text-center pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                                    <h5 class="mb-3">@track.Name</h5>
+                                    <p>@track.Description</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Track End -->

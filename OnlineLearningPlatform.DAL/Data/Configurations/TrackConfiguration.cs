@@ -15,16 +15,17 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                .UseIdentityColumn(1, 1);
 
             builder.Property(t => t.Name)
-               .HasColumnType("varchar(25)")
+               .HasColumnType("varchar(100)")
                .IsRequired();
 
             builder.Property(t => t.Description)
-               .HasColumnType("varchar(100)")
+               .HasColumnType("varchar(400)")
                .IsRequired(false);
 
             builder.Property(t => t.CreationDate)
-               .HasDefaultValue(DateTime.Now)
-               .IsRequired(false);
+               .HasColumnType("datetime2")
+               .HasDefaultValueSql("GETDATE()")
+               .IsRequired();
         }
     }
 }

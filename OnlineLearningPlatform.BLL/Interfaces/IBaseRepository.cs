@@ -11,5 +11,6 @@ namespace OnlineLearningPlatform.BLL.Interfaces
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task<T> FindByExpress(Expression<Func<T, bool>> Criteria);
+        Task<IEnumerable<T>> FindAllByExpress(Expression<Func<T, bool>> Criteria);
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.UI.Models;
 using System.Diagnostics;
 
@@ -7,14 +8,17 @@ namespace OnlineLearningPlatform.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _iUnitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork IUnitOfWork)
         {
             _logger = logger;
+            _iUnitOfWork = IUnitOfWork;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Tracks = _iUnitOfWork.Tracks.GetAllAsync().Result;
             return View();
         }
 

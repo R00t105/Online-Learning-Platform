@@ -33,6 +33,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterAsync(UserRegisterViewModel UserFromRequest)
         {
             if (ModelState.IsValid)

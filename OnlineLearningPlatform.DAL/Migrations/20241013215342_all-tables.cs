@@ -32,7 +32,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2024, 10, 13, 21, 59, 46, 764, DateTimeKind.Local).AddTicks(8443)),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
                     BirthDate = table.Column<DateOnly>(type: "Date", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -60,9 +60,9 @@ namespace OnlineLearningPlatform.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "varchar(25)", nullable: false),
-                    Description = table.Column<string>(type: "varchar(100)", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2024, 10, 13, 21, 59, 46, 768, DateTimeKind.Local).AddTicks(9240))
+                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Description = table.Column<string>(type: "varchar(400)", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
@@ -183,7 +183,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "varchar(100)", nullable: false),
                     Description = table.Column<string>(type: "varchar(300)", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2024, 10, 13, 21, 59, 46, 765, DateTimeKind.Local).AddTicks(9186)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
                     TrackId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -224,7 +224,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                 {
                     ApplicationUserId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2024, 10, 13, 21, 59, 46, 766, DateTimeKind.Local).AddTicks(5209)),
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
                     ProgressState = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "NotStarted"),
                     CompletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ProgressPercentage = table.Column<int>(type: "int", nullable: true, defaultValue: 0)
@@ -317,7 +317,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Mark = table.Column<int>(type: "int", nullable: false),
-                    AttemptDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 10, 13, 21, 59, 46, 768, DateTimeKind.Local).AddTicks(1248)),
+                    AttemptDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     QuizId = table.Column<int>(type: "int", nullable: false)
                 },

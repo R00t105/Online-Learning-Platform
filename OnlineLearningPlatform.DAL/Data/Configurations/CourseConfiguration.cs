@@ -23,7 +23,8 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                .IsRequired(false);
             
             builder.Property(c => c.CreationDate)
-               .HasDefaultValue(DateTime.Now)
+               .HasColumnType("datetime2")
+               .HasDefaultValueSql("GETDATE()")
                .IsRequired(false);
 
             builder.HasOne<Track>(navigationExpression: c => c.Track)

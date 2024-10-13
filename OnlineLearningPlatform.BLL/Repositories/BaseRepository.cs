@@ -46,5 +46,10 @@ namespace OnlineLearningPlatform.BLL.Repositories
 
         public async Task<T> FindByExpress(Expression<Func<T, bool>> Criteria) => 
             await _dbSet.SingleOrDefaultAsync(Criteria);
+
+        public async Task<IEnumerable<T>> FindAllByExpress(Expression<Func<T, bool>> Criteria) =>
+            await _dbSet.Where(Criteria).ToListAsync();
+
+
     }
 }
