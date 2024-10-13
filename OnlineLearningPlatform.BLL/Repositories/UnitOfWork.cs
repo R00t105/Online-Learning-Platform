@@ -10,31 +10,31 @@ namespace OnlineLearningPlatform.BLL.Repositories
     {
         private readonly AppDbContext _context;
 
-        public IBaseRepository<ApplicationUser> ApplicationUsers { get; private set; }
-        public IBaseRepository<Content> Contents { get; private set; }
-        public IBaseRepository<ContentText> ContentTexts { get; private set; }
-        public IBaseRepository<Course> Courses { get; private set; }
-        public IBaseRepository<Enrollment> Enrollments { get; private set; }
-        public IBaseRepository<Quiz> Quizzes { get; private set; }
-        public IBaseRepository<QuestionAnswer> QuestionAnswers { get; private set; }
-        public IBaseRepository<QuizQuestion> QuizQuestions { get; private set; }
-        public IBaseRepository<Result> Results { get; private set; }
-        public IBaseRepository<Track> Tracks { get; private set; }
+        public IApplicationUserRepository ApplicationUsers { get; private set; }
+        public IContentRepository Contents { get; private set; }
+        public IContentTextRepository ContentTexts { get; private set; }
+        public ICourseRepository Courses { get; private set; }
+        public IEnrollmentRepository Enrollments { get; private set; }
+        public IQuizRepository Quizzes { get; private set; }
+        public IQuestionAnswerRepository QuestionAnswers { get; private set; }
+        public IQuizQuestionRepository QuizQuestions { get; private set; }
+        public IResultRepository Results { get; private set; }
+        public ITrackRepository Tracks { get; private set; }
 
         public UnitOfWork(AppDbContext Context)
         {
             _context = Context;
 
-            ApplicationUsers = new BaseRepository<ApplicationUser>(_context);
-            Contents = new BaseRepository<Content>(_context);
-            ContentTexts = new BaseRepository<ContentText>(_context);
-            Courses = new BaseRepository<Course>(_context);
-            Enrollments = new BaseRepository<Enrollment>(_context);
-            Quizzes = new BaseRepository<Quiz>(_context);
-            QuestionAnswers = new BaseRepository<QuestionAnswer>(_context);
-            QuizQuestions = new BaseRepository<QuizQuestion>(_context);
-            Results = new BaseRepository<Result>(_context);
-            Tracks = new BaseRepository<Track>(_context);
+            ApplicationUsers = new ApplicationUserRepository(_context);
+            Contents = new ContentRepository(_context);
+            ContentTexts = new ContentTextRepository(_context);
+            Courses = new CourseRepository(_context);
+            Enrollments = new EnrollmentRepository(_context);
+            Quizzes = new QuizRepository(_context);
+            QuestionAnswers = new QuestionAnswerRepository(_context);
+            QuizQuestions = new QuizQuestionRepository(_context);
+            Results = new ResultRepository(_context);
+            Tracks = new TrackRepository(_context);
         }
 
         public int Complete() => 
