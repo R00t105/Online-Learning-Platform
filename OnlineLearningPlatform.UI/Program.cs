@@ -20,7 +20,7 @@ namespace OnlineLearningPlatform.UI
             });
 
             // Identity Register
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
 
             // Generic Repository Register
             //builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

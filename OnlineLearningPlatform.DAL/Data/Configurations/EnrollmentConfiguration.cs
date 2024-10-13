@@ -17,6 +17,7 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                 .IsRequired();
 
             builder.Property(e => e.EnrollmentDate)
+                .HasDefaultValue(DateTime.Now)
                 .IsRequired(false);
 
             builder.Property(e => e.CompletionDate)

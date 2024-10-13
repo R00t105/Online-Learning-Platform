@@ -23,6 +23,7 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
 
 
             builder.Property(r => r.AttemptDateTime)
+                .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
             builder.HasOne(r => r.ApplicationUser)

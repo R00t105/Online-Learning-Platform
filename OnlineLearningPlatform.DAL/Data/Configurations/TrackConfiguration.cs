@@ -23,6 +23,7 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                .IsRequired(false);
 
             builder.Property(t => t.CreationDate)
+               .HasDefaultValue(DateTime.Now)
                .IsRequired(false);
         }
     }

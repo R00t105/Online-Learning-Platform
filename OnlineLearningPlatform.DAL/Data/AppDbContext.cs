@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.DAL.Entities;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace OnlineLearningPlatform.DAL.Data
 {
@@ -15,6 +16,7 @@ namespace OnlineLearningPlatform.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Track> Tracks { get; set; }

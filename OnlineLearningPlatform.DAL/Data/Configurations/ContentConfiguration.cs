@@ -28,7 +28,7 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
             builder.HasOne<Course>(co => co.Course)
                 .WithMany(c => c.Contents)
                 .HasForeignKey(co => co.CourseId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
