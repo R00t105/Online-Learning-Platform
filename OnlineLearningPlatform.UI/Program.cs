@@ -13,14 +13,24 @@ namespace OnlineLearningPlatform.UI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Context Register
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
             });
 
+
             // Identity Register
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
+
+
+            // Session Register
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
 
             // Generic Repository Register
             //builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
