@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.ApplicationUserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Registration Date</th>
+            <th>Birth Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.RegistrationDate?.ToString("d")</td>
+                <td>@user.BirthDate?.ToString("d")</td>
+                <td>
+                    <a asp-action="EditUser" asp-route-id="@user.Id">Edit</a> |
+                    <a asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateUser" class="btn btn-primary">Create New User</a>
