@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h3>Welcome to the Online Learning Platform Dashboard</h3>
+    <p>Manage your users, courses, enrollments, contents, and roles from here.</p>
+</div>
+
+<div>
+    <h4>Quick Links:</h4>
+    <ul>
+        <li><a asp-controller="Dashboard" asp-action="Users">Manage Users</a></li>
+        <li><a asp-controller="Dashboard" asp-action="Courses">Manage Courses</a></li>
+        <li><a asp-controller="Dashboard" asp-action="Enrollments">Manage Enrollments</a></li>
+        <li><a asp-controller="Dashboard" asp-action="Contents">Manage Contents</a></li>
+        <li><a asp-controller="Role" asp-action="Index">Manage Roles</a></li>
+    </ul>
+</div>

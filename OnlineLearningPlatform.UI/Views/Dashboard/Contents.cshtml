@@ -1,0 +1,36 @@
+﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.ContentViewModel>
+
+@{
+    ViewData["Title"] = "Contents";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Video URL</th>
+            <th>Course ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var content in Model)
+        {
+            <tr>
+                <td>@content.Id</td>
+                <td>@content.Title</td>
+                <td>@content.VideoUrl</td>
+                <td>@content.CourseId</td>
+                <td>
+                    <a asp-action="EditContent" asp-route-id="@content.Id">Edit</a> |
+                    <a asp-action="DeleteContent" asp-route-id="@content.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateContent" class="btn btn-primary">Create New Content</a>
