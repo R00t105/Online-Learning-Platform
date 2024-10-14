@@ -15,6 +15,6 @@ namespace OnlineLearningPlatform.BLL.Interfaces
         IResultRepository Results { get; }
         ITrackRepository Tracks { get; }
 
-        int Complete();
+        Task<int> Complete();
     }
 }

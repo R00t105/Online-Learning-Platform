@@ -37,8 +37,8 @@ namespace OnlineLearningPlatform.BLL.Repositories
             Tracks = new TrackRepository(_context);
         }
 
-        public int Complete() => 
-            _context.SaveChanges();
+        public async Task<int> Complete() => 
+            await _context.SaveChangesAsync();
 
         public void Dispose() =>
             _context.Dispose();

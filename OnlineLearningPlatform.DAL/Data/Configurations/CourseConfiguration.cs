@@ -27,7 +27,7 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
                .HasDefaultValueSql("GETDATE()")
                .IsRequired(false);
 
-            builder.HasOne<Track>(navigationExpression: c => c.Track)
+            builder.HasOne<Track>( c => c.Track)
                 .WithMany(t => t.Courses)
                 .HasForeignKey(c => c.TrackId)
                 .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
