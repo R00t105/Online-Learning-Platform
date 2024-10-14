@@ -432,3 +432,11 @@
     padding-right: 0;
     border-right: none;
 }
+
+.bullet {
+    width: 10px;
+    height: 10px;
+    background-color: var(--dark);
+    border-radius: 50%;
+    margin: 0 5px;
+}

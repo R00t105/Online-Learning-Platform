@@ -1,0 +1,52 @@
+﻿@model CourseWithContentsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+
+<h1 style="color:#06BBCC">Course Details</h1>
+
+<div >
+    <h4>Course</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TrackName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrackName)
+        </dd>
+        <div class="d-flex justify-content-center mt-3">
+            @foreach (var content in Model.contents)
+            {
+                <div>
+                <span class="bullet"></span>
+                @content.Title
+                </div>
+            }
+        </div>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Track" asp-action="ShowCoursesByTrack" asp-route-trackId="@Model.TrackId" class="flex-shrink-0 btn btn-sm bg-dark px-3 border-end" style="border-radius: 30px 0 0 30px; color:white">Back</a>
+    <a asp-controller="Content" asp-action="Index" asp-route-ContentId="@Model.Id" class="flex-shrink-0 btn btn-primary px-3 border-end" style="border-radius: 0 30px 30px 0;">Enroll Now</a>
+</div>
+</div>

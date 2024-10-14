@@ -13,17 +13,20 @@
         <div class="row g-4">
 
 
-            @for (int i = 0; i <= 3; i++)
+            @foreach(var track in Tracks)
             {
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <a asp-controller="Track" asp-action="ShowCoursesByTrack" asp-route-trackId="@track.Id">
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
-                            <h5 class="mb-3">@Tracks[i].Name</h5>
-                            <p>@Tracks[i].Description</p>
+                            <h5 class="mb-3">@track.Name</h5>
+                            <p>@track.Description</p>
                         </div>
                     </div>
-                </div>
+                    </a>
+                    </div>
+                
             }
 
             <div class="text-end">
