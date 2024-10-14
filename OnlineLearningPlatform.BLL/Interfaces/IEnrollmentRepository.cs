@@ -9,5 +9,7 @@ namespace OnlineLearningPlatform.BLL.Interfaces
 {
     public interface IEnrollmentRepository : IBaseRepository<Enrollment>
     {
+        public Task<List<Course>> GetCoursesByUserIdAsync(int userId);
+        public void Remove(int UserId,int courseId);
     }
 }

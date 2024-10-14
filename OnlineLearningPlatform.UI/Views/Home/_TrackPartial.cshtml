@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     var Tracks = (List<Track>)ViewBag.Tracks;
 }
 
@@ -12,23 +11,29 @@
         </div>
         <div class="row g-4">
 
-
-            @for (int i = 0; i <= 3; i++)
+            @if (Tracks != null && Tracks.Any())
             {
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
-                            <h5 class="mb-3">@Tracks[i].Name</h5>
-                            <p>@Tracks[i].Description</p>
+                // Loop through a maximum of 4 tracks or however many are available
+                for (int i = 0; i < Math.Min(Tracks.Count, 4); i++)
+                {
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item text-center pt-3">
+                            <div class="p-4">
+                                <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                                <h5 class="mb-3">@Tracks[i].Name</h5>
+                                <p>@Tracks[i].Description</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <p>No tracks available.</p>
             }
 
             <div class="text-end">
-                <a asp-controller="Track" asp-action="Index"> Show All <i class="fa fa-sign-out-alt me-2"></i>
-                    </a>
+                <a asp-controller="Track" asp-action="Index"> Show All <i class="fa fa-sign-out-alt me-2"></i></a>
             </div>
         </div>
     </div>
