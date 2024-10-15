@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "_DashLayout";
+
 }
 
 
@@ -31,14 +33,6 @@
                                     <input asp-for="@Model.Description" class="form-control" placeholder="Description">
                                     <label asp-for="@Model.Description">Description</label>
                                     <span asp-validation-for="@Model.Description"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input asp-for="@Model.CreationDate" class="form-control">
-                                    <label asp-for="@Model.CreationDate">Creation Date</label>
-                                    <span asp-validation-for="@Model.CreationDate"></span>
-
                                 </div>
                             </div>
                             <div class="col-12 text-center">

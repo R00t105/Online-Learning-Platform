@@ -61,12 +61,12 @@ namespace OnlineLearningPlatform.UI.Controllers
         // POST: Track/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate")] Track track)
+        public async Task<IActionResult> Create(Track track)
         {
             if (ModelState.IsValid)
             {
                 await _unitOfWork.Tracks.AddAsync(track);
-                _unitOfWork.Complete();
+                await _unitOfWork.Complete();
                 return RedirectToAction("Tracks","Dashboard");
             }
             return View(track);
