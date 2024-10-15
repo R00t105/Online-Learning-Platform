@@ -1,42 +1,52 @@
-﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.EnrollmentViewModel>
+﻿@model IEnumerable<EnrollmentViewModel>
 
 @{
     ViewData["Title"] = "Enrollments";
+    Layout = "_DashLayout";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!-- Table Start -->
+<div class="container-fluid px-4">
+    <a asp-action="CreateEnrollment" class="btn btn-primary mb-3">Add New Enrollment</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Enrollment Date</th>
-            <th>Progress State</th>
-            <th>Completion Date</th>
-            <th>Progress (%)</th>
-            <th>User ID</th>
-            <th>Course ID</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var enrollment in Model)
-        {
-            <tr>
-                <td>@enrollment.Id</td>
-                <td>@enrollment.EnrollmentDate?.ToString("d")</td>
-                <td>@enrollment.ProgressState</td>
-                <td>@enrollment.CompletionDate?.ToString("d")</td>
-                <td>@enrollment.ProgressPercentage</td>
-                <td>@enrollment.ApplicationUserId</td>
-                <td>@enrollment.CourseId</td>
-                <td>
-                    <a asp-action="EditEnrollment" asp-route-id="@enrollment.Id">Edit</a> |
-                    <a asp-action="DeleteEnrollment" asp-route-id="@enrollment.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Enrollments</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Course ID</th>
+                        <th scope="col">Progress State</th>
+                        <th scope="col">Progress Percentage</th>
+                        <th scope="col" class="col-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<a asp-action="CreateEnrollment" class="btn btn-primary">Create New Enrollment</a>
+                    @foreach (var enroll in Model)
+                    {
+
+                        <tr>
+                            <td>@enroll.Id</td>
+                            <td>@enroll.ApplicationUserId</td>
+                            <td>@enroll.CourseId</td>
+                            <td>@enroll.ProgressState</td>
+                            <td>@enroll.ProgressPercentage %</td>
+                            <td class="col-2">
+                                <a asp-controller="Dashboard" asp-action="EditEnrollment" asp-route-id="@enroll.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="Dashboard" asp-action="DeleteEnrollment" asp-route-id="@enroll.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

@@ -16,6 +16,17 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        #region Index
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.Enrollments = await _unitOfWork.Enrollments.GetAllAsync();
+            ViewBag.UsersNom = await _unitOfWork.ApplicationUsers.GetAllAsync();
+            ViewBag.TracksNom = await _unitOfWork.Tracks.GetAllAsync();
+            ViewBag.CoursesNom = await _unitOfWork.Courses.GetAllAsync();
+            return View();
+        }
+        #endregion
+
         #region Users
         public async Task<IActionResult> Users()
         {
@@ -29,7 +40,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 BirthDate = user.BirthDate
             }).ToList();
 
-            return View(userViewModels);
+            return PartialView(userViewModels);
         }
 
         [HttpPost]
@@ -100,56 +111,120 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(courseViewModels);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateCourse([Bind("Id,Title,Description,CreationDate,TrackId")] CourseViewModel courseViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var course = new Course
-                {
-                    Title = courseViewModel.Title,
-                    Description = courseViewModel.Description,
-                    CreationDate = courseViewModel.CreationDate,
-                    TrackId = courseViewModel.TrackId
-                };
+        //[HttpPost]
+        //public async Task<IActionResult> CreateCourse([Bind("Id,Title,Description,CreationDate,TrackId")] CourseViewModel courseViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var course = new Course
+        //        {
+        //            Title = courseViewModel.Title,
+        //            Description = courseViewModel.Description,
+        //            CreationDate = courseViewModel.CreationDate,
+        //            TrackId = courseViewModel.TrackId
+        //        };
 
-                await _unitOfWork.Courses.AddAsync(course);
-                return RedirectToAction(nameof(Courses));
-            }
-            return View(courseViewModel);
+        //        await _unitOfWork.Courses.AddAsync(course);
+        //        return RedirectToAction(nameof(Courses));
+        //    }
+        //    return View(courseViewModel);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditCourse(CourseViewModel courseViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var course = await _unitOfWork.Courses.GetByIdAsync(courseViewModel.Id);
+        //        if (course != null)
+        //        {
+        //            course.Title = courseViewModel.Title;
+        //            course.Description = courseViewModel.Description;
+        //            course.CreationDate = courseViewModel.CreationDate;
+        //            course.TrackId = courseViewModel.TrackId;
+
+        //            await _unitOfWork.Courses.UpdateAsync(course);
+        //            return RedirectToAction(nameof(Courses));
+        //        }
+        //    }
+        //    return View(courseViewModel);
+        //}
+
+        //[HttpPost, ActionName("DeleteCourse")]
+        //public async Task<IActionResult> DeleteCourse(int id)
+        //{
+        //    var course = await _unitOfWork.Courses.GetByIdAsync(id);
+        //    if (course != null)
+        //    {
+        //        await _unitOfWork.Courses.RemoveAsync(id);
+        //        return RedirectToAction(nameof(Courses));
+        //    }
+        //    return NotFound();
+        //}
+        #endregion
+
+        #region Tracks
+        public async Task<IActionResult> Tracks()
+        {
+            var Tracks = await _unitOfWork.Tracks.GetAllAsync();
+            var trackViewModels = Tracks.Select(track => new TrackViewModel
+            {
+                Id = track.Id,
+                Name = track.Name,
+                Description = track.Description,
+            }).ToList();
+
+            return View(trackViewModels);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditCourse(CourseViewModel courseViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var course = await _unitOfWork.Courses.GetByIdAsync(courseViewModel.Id);
-                if (course != null)
-                {
-                    course.Title = courseViewModel.Title;
-                    course.Description = courseViewModel.Description;
-                    course.CreationDate = courseViewModel.CreationDate;
-                    course.TrackId = courseViewModel.TrackId;
+        //public IActionResult CreateTrack()
+        //{
+        //    return View();
+        //}
 
-                    await _unitOfWork.Courses.UpdateAsync(course);
-                    return RedirectToAction(nameof(Courses));
-                }
-            }
-            return View(courseViewModel);
-        }
+        //// POST: Track/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateTrack([Bind("Id,Name,Description,CreationDate")] Track track)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _unitOfWork.Tracks.AddAsync(track);
+        //        _unitOfWork.Complete();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(track);
+        //}
 
-        [HttpPost, ActionName("DeleteCourse")]
-        public async Task<IActionResult> DeleteCourse(int id)
-        {
-            var course = await _unitOfWork.Courses.GetByIdAsync(id);
-            if (course != null)
-            {
-                await _unitOfWork.Courses.RemoveAsync(id);
-                return RedirectToAction(nameof(Courses));
-            }
-            return NotFound();
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> EditTrack(int id, TrackViewModel trackViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var track = await _unitOfWork.Tracks.GetByIdAsync(id);
+        //        if (track != null)
+        //        {
+        //            track.Name = trackViewModel.Name;
+        //            track.Description = trackViewModel.Description;
+
+        //            await _unitOfWork.Tracks.UpdateAsync(track);
+        //            return RedirectToAction(nameof(Tracks));
+        //        }
+        //    }
+        //    return View(trackViewModel);
+        //}
+
+        //[HttpPost, ActionName("DeleteTrack")]
+        //public async Task<IActionResult> DeleteTrack(int id)
+        //{
+        //    var track = await _unitOfWork.Tracks.GetByIdAsync(id);
+        //    if (track != null)
+        //    {
+        //        await _unitOfWork.Tracks.RemoveAsync(id);
+        //        return RedirectToAction(nameof(Tracks));
+        //    }
+        //    return NotFound();
+        //}
         #endregion
 
         #region Content
@@ -167,54 +242,54 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(contentViewModels);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateContent([Bind("Id,Title,VideoUrl,CourseId")] ContentViewModel contentViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var content = new Content
-                {
-                    Title = contentViewModel.Title,
-                    VideoUrl = contentViewModel.VideoUrl,
-                    CourseId = contentViewModel.CourseId
-                };
+        //[HttpPost]
+        //public async Task<IActionResult> CreateContent([Bind("Id,Title,VideoUrl,CourseId")] ContentViewModel contentViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var content = new Content
+        //        {
+        //            Title = contentViewModel.Title,
+        //            VideoUrl = contentViewModel.VideoUrl,
+        //            CourseId = contentViewModel.CourseId
+        //        };
 
-                await _unitOfWork.Contents.AddAsync(content);
-                return RedirectToAction(nameof(Content));
-            }
-            return View(contentViewModel);
-        }
+        //        await _unitOfWork.Contents.AddAsync(content);
+        //        return RedirectToAction(nameof(Content));
+        //    }
+        //    return View(contentViewModel);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> EditContent(ContentViewModel contentViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var content = await _unitOfWork.Contents.GetByIdAsync(contentViewModel.Id);
-                if (content != null)
-                {
-                    content.Title = contentViewModel.Title;
-                    content.VideoUrl = contentViewModel.VideoUrl;
-                    content.CourseId = contentViewModel.CourseId;
+        //[HttpPost]
+        //public async Task<IActionResult> EditContent(ContentViewModel contentViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var content = await _unitOfWork.Contents.GetByIdAsync(contentViewModel.Id);
+        //        if (content != null)
+        //        {
+        //            content.Title = contentViewModel.Title;
+        //            content.VideoUrl = contentViewModel.VideoUrl;
+        //            content.CourseId = contentViewModel.CourseId;
 
-                    await _unitOfWork.Contents.UpdateAsync(content);
-                    return RedirectToAction(nameof(Content));
-                }
-            }
-            return View(contentViewModel);
-        }
+        //            await _unitOfWork.Contents.UpdateAsync(content);
+        //            return RedirectToAction(nameof(Content));
+        //        }
+        //    }
+        //    return View(contentViewModel);
+        //}
 
-        [HttpPost, ActionName("DeleteContent")]
-        public async Task<IActionResult> DeleteContent(int id)
-        {
-            var contentItem = await _unitOfWork.Contents.GetByIdAsync(id);
-            if (contentItem != null)
-            {
-                await _unitOfWork.Contents.RemoveAsync(id);
-                return RedirectToAction(nameof(Content));
-            }
-            return NotFound();
-        }
+        //[HttpPost, ActionName("DeleteContent")]
+        //public async Task<IActionResult> DeleteContent(int id)
+        //{
+        //    var contentItem = await _unitOfWork.Contents.GetByIdAsync(id);
+        //    if (contentItem != null)
+        //    {
+        //        await _unitOfWork.Contents.RemoveAsync(id);
+        //        return RedirectToAction(nameof(Content));
+        //    }
+        //    return NotFound();
+        //}
         #endregion
 
         #region Enrollment
@@ -235,60 +310,60 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(enrollmentViewModels);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateEnrollment([Bind("Id,EnrollmentDate,ProgressState,CompletionDate,ProgressPercentage,ApplicationUserId,CourseId")] EnrollmentViewModel enrollmentViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var enrollment = new Enrollment
-                {
-                    EnrollmentDate = enrollmentViewModel.EnrollmentDate,
-                    ProgressState = enrollmentViewModel.ProgressState,
-                    CompletionDate = enrollmentViewModel.CompletionDate,
-                    ProgressPercentage = enrollmentViewModel.ProgressPercentage,
-                    ApplicationUserId = enrollmentViewModel.ApplicationUserId,
-                    CourseId = enrollmentViewModel.CourseId
-                };
+        //[HttpPost]
+        //public async Task<IActionResult> CreateEnrollment([Bind("Id,EnrollmentDate,ProgressState,CompletionDate,ProgressPercentage,ApplicationUserId,CourseId")] EnrollmentViewModel enrollmentViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var enrollment = new Enrollment
+        //        {
+        //            EnrollmentDate = enrollmentViewModel.EnrollmentDate,
+        //            ProgressState = enrollmentViewModel.ProgressState,
+        //            CompletionDate = enrollmentViewModel.CompletionDate,
+        //            ProgressPercentage = enrollmentViewModel.ProgressPercentage,
+        //            ApplicationUserId = enrollmentViewModel.ApplicationUserId,
+        //            CourseId = enrollmentViewModel.CourseId
+        //        };
 
-                await _unitOfWork.Enrollments.AddAsync(enrollment);
-                return RedirectToAction(nameof(Enrollments));
-            }
-            return View(enrollmentViewModel);
-        }
+        //        await _unitOfWork.Enrollments.AddAsync(enrollment);
+        //        return RedirectToAction(nameof(Enrollments));
+        //    }
+        //    return View(enrollmentViewModel);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> EditEnrollment(EnrollmentViewModel enrollmentViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(enrollmentViewModel.Id);
-                if (enrollment != null)
-                {
-                    enrollment.EnrollmentDate = enrollmentViewModel.EnrollmentDate;
-                    enrollment.ProgressState = enrollmentViewModel.ProgressState;
-                    enrollment.CompletionDate = enrollmentViewModel.CompletionDate;
-                    enrollment.ProgressPercentage = enrollmentViewModel.ProgressPercentage;
-                    enrollment.ApplicationUserId = enrollmentViewModel.ApplicationUserId;
-                    enrollment.CourseId = enrollmentViewModel.CourseId;
+        //[HttpPost]
+        //public async Task<IActionResult> EditEnrollment(EnrollmentViewModel enrollmentViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(enrollmentViewModel.Id);
+        //        if (enrollment != null)
+        //        {
+        //            enrollment.EnrollmentDate = enrollmentViewModel.EnrollmentDate;
+        //            enrollment.ProgressState = enrollmentViewModel.ProgressState;
+        //            enrollment.CompletionDate = enrollmentViewModel.CompletionDate;
+        //            enrollment.ProgressPercentage = enrollmentViewModel.ProgressPercentage;
+        //            enrollment.ApplicationUserId = enrollmentViewModel.ApplicationUserId;
+        //            enrollment.CourseId = enrollmentViewModel.CourseId;
 
-                    await _unitOfWork.Enrollments.UpdateAsync(enrollment);
-                    return RedirectToAction(nameof(Enrollments));
-                }
-            }
-            return View(enrollmentViewModel);
-        }
+        //            await _unitOfWork.Enrollments.UpdateAsync(enrollment);
+        //            return RedirectToAction(nameof(Enrollments));
+        //        }
+        //    }
+        //    return View(enrollmentViewModel);
+        //}
 
-        [HttpPost, ActionName("DeleteEnrollment")]
-        public async Task<IActionResult> DeleteEnrollment(int id)
-        {
-            var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(id);
-            if (enrollment != null)
-            {
-                await _unitOfWork.Enrollments.RemoveAsync(id);
-                return RedirectToAction(nameof(Enrollments));
-            }
-            return NotFound();
-        }
+        //[HttpPost, ActionName("DeleteEnrollment")]
+        //public async Task<IActionResult> DeleteEnrollment(int id)
+        //{
+        //    var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(id);
+        //    if (enrollment != null)
+        //    {
+        //        await _unitOfWork.Enrollments.RemoveAsync(id);
+        //        return RedirectToAction(nameof(Enrollments));
+        //    }
+        //    return NotFound();
+        //}
         #endregion
     }
 }

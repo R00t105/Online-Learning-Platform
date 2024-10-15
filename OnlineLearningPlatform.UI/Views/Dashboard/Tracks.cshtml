@@ -1,0 +1,48 @@
+﻿@model List<TrackViewModel>
+@{
+    ViewData["Title"] = "Tracks";
+    Layout = "_DashLayout";
+}
+
+
+<!-- Table Start -->
+<div class="container-fluid px-4">
+    <a asp-controller="Track" asp-action="Create" class="btn btn-primary mb-3">Add New Track</a>
+
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Tracks</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Track Name</th>
+                        <th scope="col">Track Description</th>
+                        <th scope="col" class="col-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var track in Model)
+                    {
+
+                        <tr>
+                            <td>@track.Id</td>
+                            <td>@track.Name</td>
+                            <td>@track.Description</td>
+                            <td class="col-2">
+                                <a asp-controller="Track" asp-action="Edit" asp-route-id="@track.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="Track" asp-action="Delete" asp-route-id="@track.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

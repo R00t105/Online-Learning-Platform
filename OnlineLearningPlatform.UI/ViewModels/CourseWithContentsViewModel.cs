@@ -25,6 +25,6 @@ namespace OnlineLearningPlatform.UI.ViewModels
         [Required]
         [MaxLength(25)]
         public string TrackName { get; set; }
-        public List<Content> contents { get; set; }
+        public List<Content>? contents { get; set; }
     }
 }

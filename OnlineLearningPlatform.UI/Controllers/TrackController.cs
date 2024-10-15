@@ -67,7 +67,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             {
                 await _unitOfWork.Tracks.AddAsync(track);
                 _unitOfWork.Complete();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Tracks","Dashboard");
             }
             return View(track);
         }
@@ -116,7 +116,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Tracks", "Dashboard");
             }
             return View(track);
         }
@@ -149,7 +149,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 _unitOfWork.Tracks.RemoveAsync(id);
                 _unitOfWork.Complete();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Tracks", "Dashboard");
         }
 
         private async Task<bool> TrackExists(int id)

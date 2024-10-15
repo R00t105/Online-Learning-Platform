@@ -1,0 +1,70 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Create";
+    var tracks = ViewBag.tracks;
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-start wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-start text-primary px-3">Courses</h6>
+            <h1 class="mb-5">Create Course</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
+
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="Title" class="form-control" placeholder="Course Title">
+                                    <label asp-for="Title">Course Title</label>
+                                    <span asp-validation-for="Title"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="Description" class="form-control" placeholder="Description">
+                                    <label asp-for="Description">Description</label>
+                                    <span asp-validation-for="Description"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="CreationDate" class="form-control">
+                                    <label asp-for="CreationDate">Creation Date</label>
+                                    <span asp-validation-for="CreationDate"></span>
+
+                                </div>
+                            </div>
+                            <select asp-for="TrackId" class="form-control">
+                                <option value="">Select Track</option>
+                                @foreach (var track in ViewBag.Tracks)
+                                {
+                                        <option value="@track.Id">@track.Name</option>
+                                    
+                                }
+                                <span asp-validation-for="TrackId"></span>
+                            </select>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Create</button>
+                                <br />
+                                <a asp-controller="Dashboard" asp-action="Courses" style="color:var(--dark)">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

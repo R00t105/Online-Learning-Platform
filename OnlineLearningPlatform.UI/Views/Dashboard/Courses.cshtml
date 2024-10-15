@@ -1,38 +1,50 @@
-﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.CourseViewModel>
+﻿@model IEnumerable<CourseViewModel>
 
 @{
     ViewData["Title"] = "Courses";
+    Layout = "_DashLayout";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!-- Table Start -->
+<div class="container-fluid px-4">
+    <a asp-controller="Course" asp-action="Create" class="btn btn-primary mb-3">Add New Course</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Creation Date</th>
-            <th>Track ID</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var course in Model)
-        {
-            <tr>
-                <td>@course.Id</td>
-                <td>@course.Title</td>
-                <td>@course.Description</td>
-                <td>@course.CreationDate?.ToString("d")</td>
-                <td>@course.TrackId</td>
-                <td>
-                    <a asp-action="EditCourse" asp-route-id="@course.Id">Edit</a> |
-                    <a asp-action="DeleteCourse" asp-route-id="@course.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Courses</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Course Description</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col" class="col-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<a asp-action="CreateCourse" class="btn btn-primary">Create New Course</a>
+                    @foreach (var course in Model)
+                    {
+
+                        <tr>
+                            <td>@course.Id</td>
+                            <td>@course.Title</td>
+                            <td>@course.Description</td>
+                            <td>@course.CreationDate</td>
+                            <td class="col-2">
+                                <a asp-controller="Course" asp-action="Edit" asp-route-id="@course.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="Course" asp-action="Delete" asp-route-id="@course.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

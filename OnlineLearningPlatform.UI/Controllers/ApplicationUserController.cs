@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineLearningPlatform.BLL.Interfaces;
+using OnlineLearningPlatform.BLL.Repositories;
 using OnlineLearningPlatform.DAL.Entities;
 using OnlineLearningPlatform.UI.ViewModels;
 using System.Security.Claims;
+using OnlineLearningPlatform.UI.Controllers;
 
 namespace OnlineLearningPlatform.UI.Controllers
 {
@@ -63,6 +65,24 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View(New);  
          
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: user/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,UserName,Email,RegistrationDate,BirthDate")] ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                await _iUnitOfWork.ApplicationUsers.AddAsync(user);
+                _iUnitOfWork.Complete();
+                return RedirectToAction("Users", "Dashboard");
+            }
+            return View(user);
         }
 
         public async Task<IActionResult> DeleteCourse(int userid,int courseId)
