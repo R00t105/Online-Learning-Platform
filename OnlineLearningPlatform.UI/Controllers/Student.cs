@@ -11,31 +11,42 @@ using OnlineLearningPlatform.UI.Controllers;
 
 namespace OnlineLearningPlatform.UI.Controllers
 {
-    public class ApplicationUserController : Controller
+    public class Student : Controller
     {
         private readonly IUnitOfWork _iUnitOfWork;
         private readonly IEnrollmentRepository enrollmentRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ApplicationUserController(IUnitOfWork IUnitOfWork, IEnrollmentRepository enrollmentRepository, UserManager<ApplicationUser> userManager)
+        public Student(IUnitOfWork IUnitOfWork, IEnrollmentRepository enrollmentRepository, UserManager<ApplicationUser> userManager)
         {
             _iUnitOfWork = IUnitOfWork;
             this.enrollmentRepository = enrollmentRepository;
             this.userManager = userManager;
         }
+
+
         [Authorize]
-        public async Task<IActionResult> Profile(int id)
+        public async Task<IActionResult> Profile()
         {
-            ApplicationUser user = await _iUnitOfWork.ApplicationUsers.GetByIdAsync(id);
+            var user = await userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             UserProfileViewModel model = new UserProfileViewModel();
-            model.Id = id;
+            model.Id = user.Id;
             model.UserName = user.UserName;
             model.BirhtDate = user.BirthDate;
             model.Email = user.Email;
             model.courses = await enrollmentRepository.GetCoursesByUserIdAsync(user.Id);
+
+            ViewBag.Enrollments = await _iUnitOfWork.Enrollments.FindAllByExpress(e => e.ApplicationUserId == user.Id);
+
             return View(model);
         }
-        public async Task<IActionResult> Edite(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             ApplicationUser user = await _iUnitOfWork.ApplicationUsers.GetByIdAsync(id);
             UserEditeViewModel model = new UserEditeViewModel();
@@ -43,7 +54,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Edite(UserEditeViewModel New, int id)
+        public async Task<IActionResult> Edit(UserEditeViewModel New, int id)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +106,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 return NotFound("Enrollment not found.");
             }
              enrollmentRepository.Remove(userid,courseId);
-            return Ok("Course Was Deleted");
+            return RedirectToAction("Profile");
         }
     }
 }

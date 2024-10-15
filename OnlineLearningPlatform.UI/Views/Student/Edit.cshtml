@@ -1,0 +1,73 @@
+﻿@model OnlineLearningPlatform.UI.ViewModels.UserEditeViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+
+<!-- Register Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Edit Profile</h6>
+            <h1 class="mb-5">Edit</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
+                    <form method="post" asp-action="Edit">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="Email" class="form-control" placeholder="Email">
+                                    <label asp-for="Email">Email</label>
+                                    <span asp-validation-for="Email"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="OldPassword" class="form-control" placeholder="Old Password">
+                                    <label asp-for="OldPassword">Old Password</label>
+                                    <span asp-validation-for="OldPassword"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="NewPassword" class="form-control" placeholder="New Password">
+                                    <label asp-for="NewPassword">New Password</label>
+                                    <span asp-validation-for="NewPassword"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                                    <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+                                    <span asp-validation-for="@Model.ConfirmPassword"></span>
+                                </div>
+                            </div>
+                            <div class="col-3 text-center">
+                                <button class="btn btn-primary w-100 py-2" type="submit">Edit</button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <a asp-action="Profile" class="btn btn-outline-info w-100 py-2" type="submit">Back To Profile</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Register End -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
