@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.DAL.Entities;
 using OnlineLearningPlatform.UI.ViewModels; // Add this line to include the ViewModels
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace OnlineLearningPlatform.UI.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
