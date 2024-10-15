@@ -16,6 +16,17 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        #region Index
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.Enrollments = await _unitOfWork.Enrollments.GetAllAsync();
+            ViewBag.UsersNom = await _unitOfWork.ApplicationUsers.GetAllAsync();
+            ViewBag.TracksNom = await _unitOfWork.Tracks.GetAllAsync();
+            ViewBag.CoursesNom = await _unitOfWork.Courses.GetAllAsync();
+            return View();
+        } 
+        #endregion
+
         #region Users
         public async Task<IActionResult> Users()
         {
@@ -29,7 +40,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 BirthDate = user.BirthDate
             }).ToList();
 
-            return View(userViewModels);
+            return PartialView(userViewModels);
         }
 
         [HttpPost]
@@ -147,6 +158,68 @@ namespace OnlineLearningPlatform.UI.Controllers
             {
                 await _unitOfWork.Courses.RemoveAsync(id);
                 return RedirectToAction(nameof(Courses));
+            }
+            return NotFound();
+        }
+        #endregion
+
+        #region Tracks
+        public async Task<IActionResult> Tracks()
+        {
+            var Tracks = await _unitOfWork.Tracks.GetAllAsync();
+            var trackViewModels = Tracks.Select(track => new TrackViewModel
+            {
+                Id = track.Id,
+                Name = track.Name,
+                Description = track.Description,
+            }).ToList();
+
+            return View(trackViewModels);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTrack(TrackViewModel trackViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var track = new Track
+                {
+                    Name = trackViewModel.Name,
+                    Description = trackViewModel.Description
+                };
+
+                await _unitOfWork.Tracks.AddAsync(track);
+                return RedirectToAction(nameof(Courses));
+            }
+            return View(trackViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTrack(int id, TrackViewModel trackViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var track = await _unitOfWork.Tracks.GetByIdAsync(id);
+                if (track != null)
+                {
+                    track.Name = trackViewModel.Name;
+                    track.Description = trackViewModel.Description;
+
+                    await _unitOfWork.Tracks.UpdateAsync(track);
+                    return RedirectToAction(nameof(Tracks));
+                }
+            }
+            return View(trackViewModel);
+        }
+
+        [HttpPost, ActionName("DeleteTrack")]
+        public async Task<IActionResult> DeleteTrack(int id)
+        {
+            var track = await _unitOfWork.Tracks.GetByIdAsync(id);
+            if (track != null)
+            {
+                await _unitOfWork.Tracks.RemoveAsync(id);
+                return RedirectToAction(nameof(Tracks));
             }
             return NotFound();
         }

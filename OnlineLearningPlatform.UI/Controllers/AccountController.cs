@@ -86,7 +86,20 @@ namespace OnlineLearningPlatform.UI.Controllers
                         // Create Cookie
                         //var Claims = new List<Claim>() { new Claim("UserAddress", UserInDatabase.Address) };
                         await _signInManager.SignInAsync(UserInDatabase, UserLogin.RemmemberMe); //, Claims
-                        return RedirectToAction("Index", "Home");
+
+                        // Check Role
+                        if (await _userManager.IsInRoleAsync(UserInDatabase, "Admin"))
+                        {
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                        else if (await _userManager.IsInRoleAsync(UserInDatabase, "Instructor"))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                 }
                 ModelState.AddModelError("", "UserName Or Password Wrong");

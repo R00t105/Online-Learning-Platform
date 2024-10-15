@@ -16,10 +16,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             _iUnitOfWork = IUnitOfWork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Tracks = _iUnitOfWork.Tracks.GetAllAsync().Result;
-            ViewBag.Courses = _iUnitOfWork.Courses.GetAllAsync().Result;
+            ViewBag.Tracks = await _iUnitOfWork.Tracks.GetAllAsync();
+            ViewBag.Courses = await _iUnitOfWork.Courses.GetAllAsync();
             return View();
         }
 

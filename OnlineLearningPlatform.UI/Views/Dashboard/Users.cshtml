@@ -1,38 +1,53 @@
-﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.ApplicationUserViewModel>
+﻿@model IEnumerable<ApplicationUserViewModel>
 
 @{
     ViewData["Title"] = "Users";
+    Layout = "_DashLayout";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!-- Table Start -->
+<div class="container-fluid px-4">
+    <a asp-action="CreateUser" class="btn btn-primary mb-3">Add New User</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Registration Date</th>
-            <th>Birth Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.Name</td>
-                <td>@user.Email</td>
-                <td>@user.RegistrationDate?.ToString("d")</td>
-                <td>@user.BirthDate?.ToString("d")</td>
-                <td>
-                    <a asp-action="EditUser" asp-route-id="@user.Id">Edit</a> |
-                    <a asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Users</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Registration Date</th>
+                        <th scope="col">BirthDate</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<a asp-action="CreateUser" class="btn btn-primary">Create New User</a>
+                    @foreach (var User in Model)
+                        {
+
+                        <tr>
+                                <td>@User.Id</td>
+                                <td>@User.Name</td>
+                                <td>@User.Email</td>
+                                <td>@User.RegistrationDate</td>
+                                <td>@User.BirthDate</td>
+                            <td>
+                                <a asp-controller="Dashboard" asp-action="EditUser" asp-route-id="@User.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="Dashboard" asp-action="DeleteUser" asp-route-id="@User.Id" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                        </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Table End -->
+
