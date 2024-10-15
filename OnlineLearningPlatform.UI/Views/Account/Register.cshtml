@@ -45,6 +45,13 @@
                                     <span asp-validation-for="@Model.ConfirmPassword"></span>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.BirthDate" class="form-control">
+                                    <label asp-for="@Model.BirthDate">BirthDate</label>
+                                    <span asp-validation-for="@Model.BirthDate"></span>
+                                </div>
+                            </div>
                             <div class="col-6 text-center">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Sign Up</button>
                             </div>

@@ -43,6 +43,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 User.UserName = UserFromRequest.UserName;
                 User.Email = UserFromRequest.Email;
                 User.PasswordHash = UserFromRequest.Password;
+                User.BirthDate = UserFromRequest.BirthDate;
 
                 // Save To Database
                 var result = await _userManager.CreateAsync(User, User.PasswordHash);

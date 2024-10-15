@@ -25,7 +25,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> ShowCoursesByTrack(int trackId)
+        public async Task<IActionResult> ShowCourses(int trackId)
         {
             var Courses = await _unitOfWork.Courses.FindAllByExpress(c => c.TrackId == trackId);
             var Track = await _unitOfWork.Tracks.GetByIdAsync(trackId);

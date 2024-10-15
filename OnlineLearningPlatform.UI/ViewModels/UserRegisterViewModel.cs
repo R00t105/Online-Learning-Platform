@@ -20,5 +20,9 @@ namespace OnlineLearningPlatform.UI.ViewModels
         [Compare("Password")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+
+
+        [DataType(DataType.Date)]
+        public DateOnly BirthDate { get; set; }
     }
 }
