@@ -42,6 +42,9 @@ namespace OnlineLearningPlatform.UI
             //builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            //add Enrolment service
+            builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             var app = builder.Build();

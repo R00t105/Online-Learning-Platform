@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Course Contents";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar: Course Contents -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    @foreach (var content in ViewBag.Contents)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ShowTextOfContent", "Content", new { contentId = content.Id })">
+                                @content.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Content Text</h1>
+            </div>
+
+            <div id="content-texts">
+                @if (ViewBag.ContentTexts != null)
+                {
+                    foreach (var text in ViewBag.ContentTexts)
+                    {
+                        <div>
+                            <h3>@text.Subtitle</h3>
+                            <p>@text.Body</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Please select a content from the sidebar.</p>
+                }
+            </div>
+        </main>
+    </div>
+</div>
+
+<style>
+    /* Custom CSS for Sidebar */
+    #sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        padding: 48px 0 0;
+    }
+
+        #sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+
+            #sidebar .nav-link:hover {
+                color: #007bff;
+            }
+</style>

@@ -433,10 +433,21 @@
     border-right: none;
 }
 
-.bullet {
+/*.bullet {
     width: 10px;
     height: 10px;
     background-color: var(--dark);
     border-radius: 50%;
     margin: 0 5px;
+    z-index: 1;
+    position: relative;
+}*/
+.bullet::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--dark);
+    border-radius: 50%;
+    margin-right: 5px;
 }

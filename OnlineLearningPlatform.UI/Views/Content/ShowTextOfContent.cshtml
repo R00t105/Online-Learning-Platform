@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Content Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar (same as in Index) -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    @foreach (var content in ViewBag.Contents)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ShowTextOfContent", "Content", new { contentId = content.Id })">
+                                @content.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Content Text</h1>
+            </div>
+
+            <div id="content-texts">
+                @if (ViewBag.ContentTexts != null)
+                {
+                    foreach (var text in ViewBag.ContentTexts)
+                    {
+                        <div>
+                            <h3>@text.Title</h3>
+                            <p>@text.SubTitle</p>
+                            <p>@text.Paragraph</p>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No content available to display.</p>
+                }
+            </div>
+
+            <!-- Navigation Arrows for Previous and Next -->
+            <div class="navigation-arrows mt-5">
+                <div class="d-flex justify-content-between">
+                    @if (ViewBag.PreviousContent != null)
+                    {
+                        <a class="btn btn-outline-primary" href="@Url.Action("ShowTextOfContent", "Content", new { contentId = ViewBag.PreviousContent.Id })">
+                            ← Previous: @ViewBag.PreviousContent.Title
+                        </a>
+                    }
+                    else
+                    {
+                        <span></span>
+                    }
+
+                    @if (ViewBag.NextContent != null)
+                    {
+                        <a class="btn btn-outline-primary" href="@Url.Action("ShowTextOfContent", "Content", new { contentId = ViewBag.NextContent.Id })">
+                            Next: @ViewBag.NextContent.Title →
+                        </a>
+                    }
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<style>
+    .navigation-arrows {
+        padding-top: 20px;
+        border-top: 1px solid #eaeaea;
+    }
+
+    .btn-outline-primary {
+        font-weight: bold;
+    }
+</style>

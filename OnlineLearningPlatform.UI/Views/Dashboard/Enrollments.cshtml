@@ -1,0 +1,42 @@
+﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.EnrollmentViewModel>
+
+@{
+    ViewData["Title"] = "Enrollments";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Enrollment Date</th>
+            <th>Progress State</th>
+            <th>Completion Date</th>
+            <th>Progress (%)</th>
+            <th>User ID</th>
+            <th>Course ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.Id</td>
+                <td>@enrollment.EnrollmentDate?.ToString("d")</td>
+                <td>@enrollment.ProgressState</td>
+                <td>@enrollment.CompletionDate?.ToString("d")</td>
+                <td>@enrollment.ProgressPercentage</td>
+                <td>@enrollment.ApplicationUserId</td>
+                <td>@enrollment.CourseId</td>
+                <td>
+                    <a asp-action="EditEnrollment" asp-route-id="@enrollment.Id">Edit</a> |
+                    <a asp-action="DeleteEnrollment" asp-route-id="@enrollment.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateEnrollment" class="btn btn-primary">Create New Enrollment</a>
