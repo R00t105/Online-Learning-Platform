@@ -47,7 +47,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([Bind("Id,Name,Email")] ApplicationUserViewModel userViewModel)
+        public async Task<IActionResult> CreateUser(ApplicationUserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
