@@ -1,0 +1,61 @@
+﻿@model EnrollmentViewModel
+@{
+    ViewData["Title"] = "Delete";
+    var username = (string)ViewBag.Username;
+    var coursetitle = (string)ViewBag.Coursetitle;
+}
+
+<div style="padding:15px;">
+    <h1 style="color:var(--primary)">Delete</h1>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Enroll</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Username
+            </dt>
+            <dd class="col-sm-10">
+                @username
+            </dd>
+            <dt class="col-sm-2">
+                Coursetitle
+            </dt>
+            <dd class="col-sm-10">
+                @coursetitle
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EnrollmentDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EnrollmentDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProgressState)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProgressState)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompletionDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompletionDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProgressPercentage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProgressPercentage)
+            </dd>
+        </dl>
+
+        <form asp-controller="Enrollment" asp-action="Delete" method="post">
+            <input type="hidden" name="ApplicationUserId" value="@Model.ApplicationUserId"/>
+            <input type="hidden" name="CourseId" value="@Model.CourseId" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-controller="Dashboard" asp-action="Enrollments" style="color:var(--dark)">Back to List</a>
+        </form>
+    </div>
+</div>

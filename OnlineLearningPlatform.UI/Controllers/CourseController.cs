@@ -53,30 +53,34 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View();
         }
 
-        // POST: Track/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,CreationDate,TrackId")] Course course)
+        public async Task<IActionResult> Create([Bind("Title,Description,CreationDate,TrackId")] CourseViewModel courseViewModel)
         {
+            
             if (ModelState.IsValid)
             {
-                await _unitOfWork.Courses.AddAsync(course);
-                _unitOfWork.Complete();
+                await _unitOfWork.Courses.AddAsync(new Course { Title=courseViewModel.Title ,Description =courseViewModel.Description , CreationDate = courseViewModel.CreationDate , TrackId = courseViewModel.TrackId });
                 return RedirectToAction("Courses", "Dashboard");
             }
             ViewBag.tracks= await _unitOfWork.Tracks.GetAllAsync();
-            return View(course);
+            return View(courseViewModel);
         }
 
-        // GET: Track/Edit/5
+      
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var course = await _unitOfWork.Courses.GetByIdAsync(id.Value);
+            CourseViewModel course =new CourseViewModel();
+            var coursedb = await _unitOfWork.Courses.GetByIdAsync(id.Value);
+            course.Id = coursedb.Id;
+            course.Title = coursedb.Title;
+            course.Description = coursedb.Description;
+            course.CreationDate = coursedb.CreationDate;
+            course.TrackId = coursedb.TrackId;
             var tracks = await _unitOfWork.Tracks.GetAllAsync();
             ViewBag.tracks = tracks;
             if (course == null)
@@ -86,10 +90,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(course);
         }
 
-        // POST: Track/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate,TrackId")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreationDate,TrackId")] CourseViewModel course)
         {
             if (id != course.Id)
             {
@@ -98,29 +102,21 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    await _unitOfWork.Courses.UpdateAsync(course);
-                    _unitOfWork.Complete();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!await CourseExists(course.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                   Course realcourse = new Course();
+                   realcourse.Id = course.Id;
+                    realcourse.Title = course.Title;
+                     realcourse.Description = course.Description;
+                    realcourse.CreationDate = course.CreationDate;
+                    realcourse.TrackId = course.TrackId;
+                    await _unitOfWork.Courses.UpdateAsync(realcourse);
+                          _unitOfWork.Complete();
                 return RedirectToAction("Courses", "Dashboard");
             }
             ViewBag.tracks = await _unitOfWork.Tracks.GetAllAsync();
             return View(course);
         }
 
-        // GET: Track/Delete/5
+       
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,12 +130,12 @@ namespace OnlineLearningPlatform.UI.Controllers
             {
                 return NotFound();
             }
-            var track = await _unitOfWork.Tracks.GetByIdAsync(course.Id);
-            ViewBag.trackname=track.Name;
+            var track = await _unitOfWork.Tracks.GetByIdAsync(course.TrackId);
+            ViewBag.trackname=track.Name.ToString();
             return View(course);
         }
 
-        // POST: Track/Delete/5
+     
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -153,10 +149,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return RedirectToAction("Courses", "Dashboard");
         }
 
-        private async Task<bool> CourseExists(int id)
-        {
-            var course = await _unitOfWork.Courses.GetByIdAsync(id);
-            return course != null;
-        }
+
     }
 }

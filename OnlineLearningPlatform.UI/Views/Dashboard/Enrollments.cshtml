@@ -7,7 +7,7 @@
 
 <!-- Table Start -->
 <div class="container-fluid px-4">
-    <a asp-action="CreateEnrollment" class="btn btn-primary mb-3">Add New Enrollment</a>
+    <a asp-controller="Enrollment" asp-action="Create" class="btn btn-primary mb-3">Add New Enrollment</a>
 
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -17,7 +17,7 @@
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-dark">
-                        <th scope="col">ID</th>
+@*                         <th scope="col">ID</th> *@
                         <th scope="col">User ID</th>
                         <th scope="col">Course ID</th>
                         <th scope="col">Progress State</th>
@@ -31,18 +31,30 @@
                     {
 
                         <tr>
-                            <td>@enroll.Id</td>
+@*                             <td>@enroll.Id</td> *@
                             <td>@enroll.ApplicationUserId</td>
                             <td>@enroll.CourseId</td>
                             <td>@enroll.ProgressState</td>
                             <td>@enroll.ProgressPercentage %</td>
-                            <td class="col-2">
-                                <a asp-controller="Dashboard" asp-action="EditEnrollment" asp-route-id="@enroll.Id" class="btn btn-sm btn-success">Edit</a>
-                                <a asp-controller="Dashboard" asp-action="DeleteEnrollment" asp-route-id="@enroll.Id" class="btn btn-sm btn-danger">Delete</a>
+                            <td class="col-2  "style="display:flex;justify-content:space-between;">
+                                
+                                <form asp-controller="Enrollment" asp-action="Edit" method="get" >
+                                    <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
+                                    <input type="hidden" name="CourseId" value="@enroll.CourseId"/>
+                                    <button type="submit" class="btn btn-sm btn-success">Edit</button>
+                                </form>
+
+
+                                <form asp-controller="Enrollment" asp-action="Delete" method="get">
+                                    <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
+                                    <input type="hidden" name="CourseId" value="@enroll.CourseId" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                                
                             </td>
                         </tr>
                     }
-                    }
+                    
 
                 </tbody>
             </table>

@@ -1,7 +1,7 @@
-﻿@model Course
+﻿@model CourseViewModel
 @{
     ViewData["Title"] = "Create";
-    var tracks = ViewBag.tracks;
+    var tracks =(List<Track>) ViewBag.tracks;
 }
 
 <div class="container-xxl py-5">
@@ -19,36 +19,36 @@
                         <div class="row g-3 my-3">
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input asp-for="Title" class="form-control" placeholder="Course Title">
-                                    <label asp-for="Title">Course Title</label>
-                                    <span asp-validation-for="Title"></span>
+                                    <input asp-for="@Model.Title" class="form-control" placeholder="Course Title">
+                                    <label asp-for="@Model.Title">Course Title</label>
+                                    <span asp-validation-for="@Model.Title"></span>
 
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input asp-for="Description" class="form-control" placeholder="Description">
-                                    <label asp-for="Description">Description</label>
-                                    <span asp-validation-for="Description"></span>
+                                    <input asp-for="@Model.Description" class="form-control" placeholder="Description">
+                                    <label asp-for="@Model.Description">Description</label>
+                                    <span asp-validation-for="@Model.Description"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input asp-for="CreationDate" class="form-control">
-                                    <label asp-for="CreationDate">Creation Date</label>
-                                    <span asp-validation-for="CreationDate"></span>
+                                    <input asp-for="@Model.CreationDate" class="form-control">
+                                    <label asp-for="@Model.CreationDate">Creation Date</label>
+                                    <span asp-validation-for="@Model.CreationDate"></span>
 
                                 </div>
                             </div>
-                            <select asp-for="TrackId" class="form-control">
+                            <select asp-for="@Model.TrackId" class="form-control">
                                 <option value="">Select Track</option>
-                                @foreach (var track in ViewBag.Tracks)
+                                @foreach (var track in tracks)
                                 {
-                                        <option value="@track.Id">@track.Name</option>
+                                    <option value="@track.Id">@track.Name</option>
                                     
                                 }
-                                <span asp-validation-for="TrackId"></span>
                             </select>
+                            <span asp-validation-for="@Model.TrackId"></span>
                             <div class="col-12 text-center">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Create</button>
                                 <br />

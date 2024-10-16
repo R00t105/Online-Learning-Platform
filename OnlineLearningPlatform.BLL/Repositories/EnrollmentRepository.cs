@@ -36,6 +36,11 @@ namespace OnlineLearningPlatform.BLL.Interfaces
             appContext.Enrollments.Remove(e);
             appContext.SaveChanges();
         }
+        public async Task<Enrollment> GetEnrollby2keysasync(int UserId, int courseId)
+        {
+            Enrollment e = appContext.Enrollments.FirstOrDefault(i => i.ApplicationUserId == UserId && i.CourseId == courseId);
+            return e;
+        }
 
     }
 }

@@ -1,0 +1,85 @@
+﻿@model EnrollmentViewModel
+@{
+    ViewData["Title"] = "Edit";
+    var username = (string)ViewBag.Username;
+    var coursetitle = (string)ViewBag.Coursetitle;
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-start wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-start text-primary px-3">Enrollments</h6>
+            <h1 class="mb-5">Edit Enroll</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
+
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="ApplicationUserId"/>
+                        <input type="hidden" asp-for="CourseId" />
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text" value="@username" readonly class="form-control" />
+                                     <label > User Name</label>
+                                
+                                </div>
+                             </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text" value="@coursetitle" readonly class="form-control" />
+                                    <label >Course Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.EnrollmentDate" class="form-control">
+                                    <label asp-for="@Model.EnrollmentDate">Enroll Date</label>
+                                    <span asp-validation-for="@Model.EnrollmentDate"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.ProgressState" class="form-control">
+                                    <label asp-for="@Model.ProgressState">Progress State</label>
+                                    <span asp-validation-for="@Model.ProgressState"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.CompletionDate" class="form-control">
+                                    <label asp-for="@Model.CompletionDate">CompletionDate</label>
+                                    <span asp-validation-for="@Model.CompletionDate"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.ProgressPercentage" class="form-control">
+                                    <label asp-for="@Model.ProgressPercentage">ProgressPercentage</label>
+                                    <span asp-validation-for="@Model.ProgressPercentage"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Edit</button>
+                                <br />
+                                <a asp-controller="Dashboard" asp-action="Enrollments" style="color:var(--dark)">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

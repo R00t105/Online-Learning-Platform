@@ -301,7 +301,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             var enrollments = await _unitOfWork.Enrollments.GetAllAsync();
             var enrollmentViewModels = enrollments.Select(enrollment => new EnrollmentViewModel
             {
-                Id = enrollment.CourseId,
+                //Id = enrollment.CourseId,
                 EnrollmentDate = enrollment.EnrollmentDate,
                 ProgressState = enrollment.ProgressState,
                 CompletionDate = enrollment.CompletionDate,
