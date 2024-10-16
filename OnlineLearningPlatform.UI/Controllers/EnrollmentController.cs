@@ -19,10 +19,16 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
+        #region Index
+
         public async Task<IActionResult> Index()
         {
             return View("Enrollments", "Dashboard");
         }
+
+        #endregion
+
+        #region Create
 
         public async Task<IActionResult> Create()
         {
@@ -44,8 +50,8 @@ namespace OnlineLearningPlatform.UI.Controllers
                     CourseId = enrollmentViewModel.CourseId,
                     EnrollmentDate = enrollmentViewModel.EnrollmentDate,
                     ProgressState = enrollmentViewModel.ProgressState,
-                    CompletionDate= enrollmentViewModel.CompletionDate,
-                    ProgressPercentage= enrollmentViewModel.ProgressPercentage
+                    CompletionDate = enrollmentViewModel.CompletionDate,
+                    ProgressPercentage = enrollmentViewModel.ProgressPercentage
                 });
                 return RedirectToAction("Enrollments", "Dashboard");
             }
@@ -54,6 +60,9 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(enrollmentViewModel);
         }
 
+        #endregion
+
+        #region Edit
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? ApplicationUserId, int? CourseId)
@@ -70,11 +79,11 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             EnrollmentViewModel enrollmentViewModel = new EnrollmentViewModel();
             enrollmentViewModel.ApplicationUserId = enroll.ApplicationUserId;
-            enrollmentViewModel.CourseId= enroll.CourseId;
-            enrollmentViewModel.EnrollmentDate= enroll.EnrollmentDate;
-            enrollmentViewModel.ProgressState= enroll.ProgressState;
-            enrollmentViewModel.CompletionDate= enroll.CompletionDate;
-            enrollmentViewModel.ProgressPercentage= enroll.ProgressPercentage;
+            enrollmentViewModel.CourseId = enroll.CourseId;
+            enrollmentViewModel.EnrollmentDate = enroll.EnrollmentDate;
+            enrollmentViewModel.ProgressState = enroll.ProgressState;
+            enrollmentViewModel.CompletionDate = enroll.CompletionDate;
+            enrollmentViewModel.ProgressPercentage = enroll.ProgressPercentage;
 
             var username = await _unitOfWork.ApplicationUsers.GetByIdAsync(enrollmentViewModel.ApplicationUserId);
             var coursetitle = await _unitOfWork.Courses.GetByIdAsync(enrollmentViewModel.CourseId);
@@ -86,7 +95,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int ApplicationUserId,int CourseId, [Bind("ApplicationUserId,CourseId,EnrollmentDate,ProgressState,CompletionDate,ProgressPercentage")] EnrollmentViewModel enrollmentViewModel)
+        public async Task<IActionResult> Edit(int ApplicationUserId, int CourseId, [Bind("ApplicationUserId,CourseId,EnrollmentDate,ProgressState,CompletionDate,ProgressPercentage")] EnrollmentViewModel enrollmentViewModel)
         {
             if (ApplicationUserId != enrollmentViewModel.ApplicationUserId || CourseId != enrollmentViewModel.CourseId)
             {
@@ -94,7 +103,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             var enrollment = await _unitOfWork.Enrollments.GetFirstOrDefaultWithIncludeAsync(e => e.ApplicationUserId == ApplicationUserId && e.CourseId == CourseId, e => e.ApplicationUser);
 
-        
+
 
             if (enrollment == null)
             {
@@ -103,13 +112,13 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             if (ModelState.IsValid)
             {
-     
+
                 enrollment.ApplicationUserId = enrollmentViewModel.ApplicationUserId;
-                enrollment.CourseId= enrollmentViewModel.CourseId;
+                enrollment.CourseId = enrollmentViewModel.CourseId;
                 enrollment.EnrollmentDate = enrollmentViewModel.EnrollmentDate;
-                enrollment.ProgressState= enrollmentViewModel.ProgressState;
-                enrollment.CompletionDate= enrollmentViewModel.CompletionDate;
-                enrollment.ProgressPercentage= enrollmentViewModel.ProgressPercentage;
+                enrollment.ProgressState = enrollmentViewModel.ProgressState;
+                enrollment.CompletionDate = enrollmentViewModel.CompletionDate;
+                enrollment.ProgressPercentage = enrollmentViewModel.ProgressPercentage;
                 await _unitOfWork.Enrollments.UpdateAsync(enrollment);
                 return RedirectToAction("Enrollments", "Dashboard");
             }
@@ -121,6 +130,9 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(enrollmentViewModel);
         }
 
+        #endregion
+
+        #region Delete
 
         public async Task<IActionResult> Delete(int? ApplicationUserId, int? CourseId)
         {
@@ -142,8 +154,8 @@ namespace OnlineLearningPlatform.UI.Controllers
             enrollmentViewModel.ProgressState = enroll.ProgressState;
             enrollmentViewModel.CompletionDate = enroll.CompletionDate;
             enrollmentViewModel.ProgressPercentage = enroll.ProgressPercentage;
-             var username = await _unitOfWork.ApplicationUsers.GetByIdAsync(enrollmentViewModel.ApplicationUserId);
-             var coursetitle = await _unitOfWork.Courses.GetByIdAsync(enrollmentViewModel.CourseId);
+            var username = await _unitOfWork.ApplicationUsers.GetByIdAsync(enrollmentViewModel.ApplicationUserId);
+            var coursetitle = await _unitOfWork.Courses.GetByIdAsync(enrollmentViewModel.CourseId);
             ViewBag.Username = username.UserName.ToString();
             ViewBag.Coursetitle = coursetitle.Title.ToString();
             return View(enrollmentViewModel);
@@ -161,7 +173,9 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             _unitOfWork.Enrollments.Remove(ApplicationUserId.Value, CourseId.Value);
             return RedirectToAction("Enrollments", "Dashboard");
-        }
+        } 
+
+        #endregion
 
         #region Enroll
 
