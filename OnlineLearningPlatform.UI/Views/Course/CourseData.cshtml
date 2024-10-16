@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div class="container">
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
 
 <h1 style="color:#06BBCC">Course Details</h1>
 
@@ -21,12 +23,6 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TrackName)
@@ -52,7 +48,9 @@
 </div>
     
 <div>
-    <a asp-controller="Track" asp-action="ShowCoursesByTrack" asp-route-trackId="@Model.TrackId" class="flex-shrink-0 btn btn-sm bg-dark px-3 border-end" style="border-radius: 30px 0 0 30px; color:white">Back</a>
+    <a asp-controller="Track" asp-action="Index" class="flex-shrink-0 btn btn-sm bg-dark px-3 border-end" style="border-radius: 30px 0 0 30px; color:white">Back</a>
     <a asp-controller="Content" asp-action="Index" asp-route-courseId="@Model.Id" class="flex-shrink-0 btn btn-primary px-3 border-end" style="border-radius: 0 30px 30px 0;">Enroll Now</a>
+</div>
+</div>
 </div>
 </div>

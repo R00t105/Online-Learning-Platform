@@ -30,7 +30,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             var Courses = await _unitOfWork.Courses.FindAllByExpress(c => c.TrackId == trackId);
             var Track = await _unitOfWork.Tracks.GetByIdAsync(trackId);
             ViewBag.TrackName = Track.Name.ToString();
-            return View(Courses);
+            return View("ShowCourses", Courses);
         }
 
 

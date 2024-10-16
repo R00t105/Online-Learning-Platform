@@ -1,0 +1,9 @@
+﻿@model List<ContentText>
+
+@foreach (var contentText in Model)
+{
+    <div class="content">
+        <h2>@contentText.Title</h2>
+        <p>@contentText.Paragraph</p>
+    </div>
+}
