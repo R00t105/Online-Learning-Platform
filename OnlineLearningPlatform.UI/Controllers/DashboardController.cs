@@ -114,56 +114,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(courseViewModels);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateCourse([Bind("Id,Title,Description,CreationDate,TrackId")] CourseViewModel courseViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var course = new Course
-        //        {
-        //            Title = courseViewModel.Title,
-        //            Description = courseViewModel.Description,
-        //            CreationDate = courseViewModel.CreationDate,
-        //            TrackId = courseViewModel.TrackId
-        //        };
-
-        //        await _unitOfWork.Courses.AddAsync(course);
-        //        return RedirectToAction(nameof(Courses));
-        //    }
-        //    return View(courseViewModel);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditCourse(CourseViewModel courseViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var course = await _unitOfWork.Courses.GetByIdAsync(courseViewModel.Id);
-        //        if (course != null)
-        //        {
-        //            course.Title = courseViewModel.Title;
-        //            course.Description = courseViewModel.Description;
-        //            course.CreationDate = courseViewModel.CreationDate;
-        //            course.TrackId = courseViewModel.TrackId;
-
-        //            await _unitOfWork.Courses.UpdateAsync(course);
-        //            return RedirectToAction(nameof(Courses));
-        //        }
-        //    }
-        //    return View(courseViewModel);
-        //}
-
-        //[HttpPost, ActionName("DeleteCourse")]
-        //public async Task<IActionResult> DeleteCourse(int id)
-        //{
-        //    var course = await _unitOfWork.Courses.GetByIdAsync(id);
-        //    if (course != null)
-        //    {
-        //        await _unitOfWork.Courses.RemoveAsync(id);
-        //        return RedirectToAction(nameof(Courses));
-        //    }
-        //    return NotFound();
-        //}
+        
         #endregion
 
         #region Tracks
@@ -180,54 +131,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(trackViewModels);
         }
 
-        //public IActionResult CreateTrack()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Track/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateTrack([Bind("Id,Name,Description,CreationDate")] Track track)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _unitOfWork.Tracks.AddAsync(track);
-        //        _unitOfWork.Complete();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(track);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditTrack(int id, TrackViewModel trackViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var track = await _unitOfWork.Tracks.GetByIdAsync(id);
-        //        if (track != null)
-        //        {
-        //            track.Name = trackViewModel.Name;
-        //            track.Description = trackViewModel.Description;
-
-        //            await _unitOfWork.Tracks.UpdateAsync(track);
-        //            return RedirectToAction(nameof(Tracks));
-        //        }
-        //    }
-        //    return View(trackViewModel);
-        //}
-
-        //[HttpPost, ActionName("DeleteTrack")]
-        //public async Task<IActionResult> DeleteTrack(int id)
-        //{
-        //    var track = await _unitOfWork.Tracks.GetByIdAsync(id);
-        //    if (track != null)
-        //    {
-        //        await _unitOfWork.Tracks.RemoveAsync(id);
-        //        return RedirectToAction(nameof(Tracks));
-        //    }
-        //    return NotFound();
-        //}
+        
         #endregion
 
         #region Content
@@ -313,60 +217,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(enrollmentViewModels);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateEnrollment([Bind("Id,EnrollmentDate,ProgressState,CompletionDate,ProgressPercentage,ApplicationUserId,CourseId")] EnrollmentViewModel enrollmentViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var enrollment = new Enrollment
-        //        {
-        //            EnrollmentDate = enrollmentViewModel.EnrollmentDate,
-        //            ProgressState = enrollmentViewModel.ProgressState,
-        //            CompletionDate = enrollmentViewModel.CompletionDate,
-        //            ProgressPercentage = enrollmentViewModel.ProgressPercentage,
-        //            ApplicationUserId = enrollmentViewModel.ApplicationUserId,
-        //            CourseId = enrollmentViewModel.CourseId
-        //        };
-
-        //        await _unitOfWork.Enrollments.AddAsync(enrollment);
-        //        return RedirectToAction(nameof(Enrollments));
-        //    }
-        //    return View(enrollmentViewModel);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditEnrollment(EnrollmentViewModel enrollmentViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(enrollmentViewModel.Id);
-        //        if (enrollment != null)
-        //        {
-        //            enrollment.EnrollmentDate = enrollmentViewModel.EnrollmentDate;
-        //            enrollment.ProgressState = enrollmentViewModel.ProgressState;
-        //            enrollment.CompletionDate = enrollmentViewModel.CompletionDate;
-        //            enrollment.ProgressPercentage = enrollmentViewModel.ProgressPercentage;
-        //            enrollment.ApplicationUserId = enrollmentViewModel.ApplicationUserId;
-        //            enrollment.CourseId = enrollmentViewModel.CourseId;
-
-        //            await _unitOfWork.Enrollments.UpdateAsync(enrollment);
-        //            return RedirectToAction(nameof(Enrollments));
-        //        }
-        //    }
-        //    return View(enrollmentViewModel);
-        //}
-
-        //[HttpPost, ActionName("DeleteEnrollment")]
-        //public async Task<IActionResult> DeleteEnrollment(int id)
-        //{
-        //    var enrollment = await _unitOfWork.Enrollments.GetByIdAsync(id);
-        //    if (enrollment != null)
-        //    {
-        //        await _unitOfWork.Enrollments.RemoveAsync(id);
-        //        return RedirectToAction(nameof(Enrollments));
-        //    }
-        //    return NotFound();
-        //}
+       
         #endregion
     }
 }

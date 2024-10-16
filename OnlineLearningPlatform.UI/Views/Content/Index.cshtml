@@ -1,68 +1,87 @@
-﻿@{
+﻿@model List<Content>
+@{
     ViewBag.Title = "Course Contents";
+    Layout = "_ContentLayout";
+    var courseId = ViewBag.CourseId;
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar: Course Contents -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    @foreach (var content in ViewBag.Contents)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("ShowTextOfContent", "Content", new { contentId = content.Id })">
-                                @content.Title
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nav>
+<!-- Sidebar -->
+<nav class="sidebar">
+    <h4 class="mb-4 border-bottom border-2 pb-2">Table of Contents</h4>
+    <ul class="nav flex-column g-3">
+        @foreach (var content in Model)
+        {
+            <li class="nav-item mb-3">
+                <a href="javascript:void(0);" class="btn btn-secondary nav-link rounded-3"
+                   onclick="loadContent(@content.Id)">
+                    @content.Title
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
 
-        <!-- Main Content Area -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Content Text</h1>
-            </div>
-
-            <div id="content-texts">
-                @if (ViewBag.ContentTexts != null)
-                {
-                    foreach (var text in ViewBag.ContentTexts)
-                    {
-                        <div>
-                            <h3>@text.Subtitle</h3>
-                            <p>@text.Body</p>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p>Please select a content from the sidebar.</p>
-                }
-            </div>
-        </main>
-    </div>
+<!-- Content Section -->
+<div id="contentSection" class="container-fluid">
+    <!-- Initially display the first content or nothing -->
+    @Html.Partial("_ContentDetailsPartial", (List<ContentText>)ViewBag.ContentTexts)
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function loadContent(contentId) {
+        $.ajax({
+            url: '@Url.Action("LoadContent", "Content")',
+            type: 'GET',
+            data: { contentId: contentId },
+            success: function (result) {
+                $('#contentSection').html(result);
+            },
+            error: function () {
+                alert("Error loading content.");
+            }
+        });
+    }
+</script>
+
+
+
+
+
 <style>
-    /* Custom CSS for Sidebar */
-    #sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
+
+    .sidebar {
+        min-height: 100vh;
+        background-color: #f8f9fa;
+        padding: 20px;
+        padding-top: 30px;
+        position: absolute;
+        top: 75px;
         left: 0;
-        z-index: 100;
-        padding: 48px 0 0;
+        width: 250px;
+        z-index:1;
     }
 
-        #sidebar .nav-link {
-            font-weight: 500;
-            color: #333;
+    .content {
+        margin-left: 270px;
+        padding: 20px;
+        margin-top: 56px;
+        z-index:-100;
+    }
+
+        .content h2 {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
         }
 
-            #sidebar .nav-link:hover {
-                color: #007bff;
-            }
+        .content p {
+            margin-top: 20px;
+        }
+
+        .my-nav-link:hover{
+        background: #06bbcc;
+        display:block;
+        color:white;
+        }
+
 </style>

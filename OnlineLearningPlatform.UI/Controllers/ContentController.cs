@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.DAL.Entities;
+using OnlineLearningPlatform.UI.ViewModels;
 
 namespace OnlineLearningPlatform.UI.Controllers
 {
@@ -13,12 +14,28 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        
-        public async Task<IActionResult> Index(int courseId)
+
+        public async Task<IActionResult> Index(int courseId, int? contentId)
         {
-            ViewBag.Contents = await _unitOfWork.Contents.FindAllByExpress(c => c.CourseId == courseId);
-            return View();
+            var contents = await _unitOfWork.Contents.FindAllByExpress(c => c.CourseId == courseId);
+            var contentsAlways = (List<Content>)contents;
+
+            var contentTexts = contentId.HasValue
+                ? await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId.Value)
+                : new List<ContentText>();
+
+            ViewBag.ContentTexts = contentTexts;
+            ViewBag.CourseId = courseId;
+
+            return View(contentsAlways);
         }
+
+        public async Task<IActionResult> LoadContent(int contentId)
+        {
+            var contentTexts = await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId);
+            return PartialView("_ContentDetailsPartial", contentTexts);
+        }
+
 
         public async Task<IActionResult> ShowTextOfContent(int contentId)
         {

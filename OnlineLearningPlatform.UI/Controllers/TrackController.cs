@@ -29,8 +29,13 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             var Courses = await _unitOfWork.Courses.FindAllByExpress(c => c.TrackId == trackId);
             var Track = await _unitOfWork.Tracks.GetByIdAsync(trackId);
+<<<<<<< HEAD
             ViewBag.TrackName = Track.Name;
             return View(Courses);
+=======
+            ViewBag.TrackName = Track.Name.ToString();
+            return View("ShowCourses", Courses);
+>>>>>>> 58d43062d21f047460b49fd4f4a46ac83ce6b313
         }
 
 
@@ -61,12 +66,12 @@ namespace OnlineLearningPlatform.UI.Controllers
         // POST: Track/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate")] Track track)
+        public async Task<IActionResult> Create(Track track)
         {
             if (ModelState.IsValid)
             {
                 await _unitOfWork.Tracks.AddAsync(track);
-                _unitOfWork.Complete();
+                await _unitOfWork.Complete();
                 return RedirectToAction("Tracks","Dashboard");
             }
             return View(track);
