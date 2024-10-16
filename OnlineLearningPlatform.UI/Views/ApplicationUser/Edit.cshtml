@@ -2,41 +2,67 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_DashLayout";
 }
 
-<h1>Edite</h1>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-start wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-start text-primary px-3">Users</h6>
+            <h1 class="mb-5">Edit User</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
 
-<h4>UserEditeViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="ApplicationUser" asp-action="Edite" asp-route-id="@Model.Id" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                    <form asp-controller="ApplicationUser" asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Name" class="form-control" placeholder="User Name">
+                                    <label asp-for="@Model.Name">User Name</label>
+                                    <span asp-validation-for="@Model.Name"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Email" class="form-control" placeholder="Email">
+                                    <label asp-for="@Model.Email">Email</label>
+                                    <span asp-validation-for="@Model.Email"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.BirthDate" class="form-control">
+                                    <label asp-for="@Model.BirthDate">BirthDate</label>
+                                    <span asp-validation-for="@Model.BirthDate"></span>
+
+                                </div>
+                            </div>
+                            <select asp-for="@Model.RoleId" class="form-control">
+                                <option value="">-- Select Role --</option>
+
+                                @foreach (var Role in ViewBag.Roles)
+                                {
+                                    <option value="@Role.Id">@Role.Name</option>
+                                }
+
+                            </select>
+                            <span asp-validation-for="@Model.RoleId"></span>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Save</button>
+                                <br />
+                                <a asp-controller="Dashboard" asp-action="Users" style="color:var(--dark)">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OldPassword" class="control-label"></label>
-                <input asp-for="OldPassword" class="form-control" />
-                <span asp-validation-for="OldPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewPassword" class="control-label"></label>
-                <input asp-for="NewPassword" class="form-control" />
-                <span asp-validation-for="NewPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
