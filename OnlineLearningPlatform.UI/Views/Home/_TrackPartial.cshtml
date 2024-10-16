@@ -16,9 +16,9 @@
                 // Loop through a maximum of 4 tracks or however many are available
                 for (int i = 0; i < Math.Min(Tracks.Count, 4); i++)
                 {
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp rounded-3" data-wow-delay="0.1s">
                         <a asp-controller="Track" asp-action="ShowCourses" asp-route-trackId="@Tracks[i].Id">
-                        <div class="service-item text-center pt-3">
+                            <div class="service-item text-center pt-3 rounded-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
                                 <h5 class="mb-3">@Tracks[i].Name</h5>
