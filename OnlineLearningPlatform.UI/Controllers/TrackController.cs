@@ -29,13 +29,9 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             var Courses = await _unitOfWork.Courses.FindAllByExpress(c => c.TrackId == trackId);
             var Track = await _unitOfWork.Tracks.GetByIdAsync(trackId);
-<<<<<<< HEAD
-            ViewBag.TrackName = Track.Name;
-            return View(Courses);
-=======
+
             ViewBag.TrackName = Track.Name.ToString();
             return View("ShowCourses", Courses);
->>>>>>> 58d43062d21f047460b49fd4f4a46ac83ce6b313
         }
 
 
@@ -58,7 +54,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         // GET: Track/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }

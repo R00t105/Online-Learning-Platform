@@ -1,12 +1,10 @@
 ﻿@model CourseViewModel
 @{
     ViewData["Title"] = "Create";
-<<<<<<< HEAD
     var tracks =(List<Track>) ViewBag.tracks;
-=======
-    var tracks = ViewBag.tracks;
+
+  
     Layout = "_DashLayout";
->>>>>>> 58d43062d21f047460b49fd4f4a46ac83ce6b313
 }
 
 <div class="container-xxl py-5">
@@ -37,7 +35,7 @@
                                     <span asp-validation-for="@Model.Description"></span>
                                 </div>
                             </div>
-<<<<<<< HEAD
+
                             <div class="col-md-12">
                                 <div class="form-floating">
                                     <input asp-for="@Model.CreationDate" class="form-control">
@@ -47,17 +45,13 @@
                                 </div>
                             </div>
                             <select asp-for="@Model.TrackId" class="form-control">
-                                <option value="">Select Track</option>
-                                @foreach (var track in tracks)
-=======
-                            <select asp-for="TrackId" class="form form-control">
                                 <option value="">-- Select Track --</option>
-                                @foreach (var track in ViewBag.Tracks)
->>>>>>> 58d43062d21f047460b49fd4f4a46ac83ce6b313
+                                
+                                @foreach (var track in tracks)
                                 {
                                     <option value="@track.Id">@track.Name</option>
-                                    
                                 }
+                                
                             </select>
                             <span asp-validation-for="@Model.TrackId"></span>
                             <div class="col-12 text-center">
