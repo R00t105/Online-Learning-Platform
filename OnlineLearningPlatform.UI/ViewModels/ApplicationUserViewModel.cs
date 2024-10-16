@@ -16,6 +16,8 @@ namespace OnlineLearningPlatform.UI.ViewModels
 
         [DataType(DataType.Date)]
         public DateOnly? BirthDate { get; set; }
+
+        public List<string>? Roles { get; set; }
     }
 
 }

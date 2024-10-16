@@ -60,8 +60,9 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         // GET: Content/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Courses = await _unitOfWork.Courses.GetAllAsync();
             return View();
         }
 
@@ -73,11 +74,14 @@ namespace OnlineLearningPlatform.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _unitOfWork.Contents.AddAsync(content);
-                await _unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Repopulate the Courses list when the ModelState is invalid
+            ViewBag.Courses = await _unitOfWork.Courses.GetAllAsync();
             return View(content);
         }
+
 
         // GET: Content/Edit/5
         public async Task<IActionResult> Edit(int? id)

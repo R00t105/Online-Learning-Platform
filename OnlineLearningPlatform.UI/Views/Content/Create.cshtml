@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    var Courses = (List<Course>)ViewBag.Courses;
     Layout = "_DashLayout";
 }
 
@@ -16,7 +17,7 @@
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="wow fadeInUp" data-wow-delay="0.5s">
 
-                    <form asp-action="Create">
+                    <form asp-controller="Content" asp-action="Create">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="row g-3 my-3">
                             <div class="col-md-12">
@@ -32,6 +33,18 @@
                                     <input asp-for="@Model.VideoUrl" class="form-control" placeholder="Video">
                                     <label asp-for="@Model.VideoUrl">Video</label>
                                     <span asp-validation-for="@Model.VideoUrl"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                        <select asp-for="@Model.CourseId" class="form form-control">
+                                                <option value="">-- Select Course --</option>
+                                
+                                                @foreach (var Course in Courses)
+                                                {
+                                                    <option value="@Course.Id">@Course.Title</option>
+                                                }
+                                        </select>
                                 </div>
                             </div>
                             <div class="col-12 text-center">

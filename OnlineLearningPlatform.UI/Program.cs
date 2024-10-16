@@ -9,7 +9,7 @@ namespace OnlineLearningPlatform.UI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -39,15 +39,37 @@ namespace OnlineLearningPlatform.UI
 
 
             // Generic Repository Register
-            //builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            //add Enrolment service
             builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
             var app = builder.Build();
+
+
+            // Seed the database with initial data
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<AppDbContext>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+                    // Await the Initialize method to ensure it completes before moving on
+                    await SeedData.Initialize(context, userManager, roleManager);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

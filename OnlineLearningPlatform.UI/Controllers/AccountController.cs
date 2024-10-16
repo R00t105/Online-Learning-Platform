@@ -52,7 +52,8 @@ namespace OnlineLearningPlatform.UI.Controllers
                 {
                     // Create Cookie, false means it's Session
                     await _signInManager.SignInAsync(User, false);
-                    return RedirectToAction("Login");
+                    await _userManager.AddToRoleAsync(User, "Student");
+                    return RedirectToAction("Index", "Home");
                 }
                 foreach (var item in result.Errors)
                     ModelState.AddModelError("", item.Description);
@@ -92,10 +93,6 @@ namespace OnlineLearningPlatform.UI.Controllers
                         if (await _userManager.IsInRoleAsync(UserInDatabase, "Admin"))
                         {
                             return RedirectToAction("Index", "Dashboard");
-                        }
-                        else if (await _userManager.IsInRoleAsync(UserInDatabase, "Instructor"))
-                        {
-                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {

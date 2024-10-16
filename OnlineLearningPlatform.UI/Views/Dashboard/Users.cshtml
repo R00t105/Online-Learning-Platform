@@ -22,6 +22,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Registration Date</th>
                         <th scope="col">BirthDate</th>
+                        <th scope="col">Role</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -36,13 +37,23 @@
                                 <td>@User.Email</td>
                                 <td>@User.RegistrationDate</td>
                                 <td>@User.BirthDate</td>
+                                <td>
+                                @if (User.Roles.Any())
+                                {
+                                    @string.Join(", ", User.Roles)
+                                }
+                                else
+                                {
+                                    <span>No Role</span>
+                                }
+                                </td>
                             <td>
                                 <a asp-controller="Dashboard" asp-action="EditUser" asp-route-id="@User.Id" class="btn btn-sm btn-success">Edit</a>
                                 <a asp-controller="Dashboard" asp-action="DeleteUser" asp-route-id="@User.Id" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                         </tr>
                         }
-                    }
+                    
 
                 </tbody>
             </table>
