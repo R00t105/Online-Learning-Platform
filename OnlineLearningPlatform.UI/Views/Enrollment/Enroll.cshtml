@@ -1,0 +1,38 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+
+    <h1 style="color:var(--primary)">Enroll</h1>
+
+    <h3>Are you sure you want to enroll this Course?</h3>
+
+    <div>
+        <form class="d-inline" asp-controller="Enrollment" asp-action="Enroll" asp-route-courseId="@Model.Id" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Enroll" class="btn btn-primary w-30 rounded-3" />
+
+        </form>
+        <form class="col-6 d-inline" asp-controller="Course" asp-action="CourseData" asp-route-id="@Model.Id">
+            <input type="submit" class="btn btn-dark w-30 rounded-3" value="Back" />
+        </form>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="my-3 text-success">
+                @ViewBag.SuccessMessage
+            </div>
+        }
+        else
+        {
+            <div asp-validation-summary="All" class="my-3 text-danger"></div>
+        }
+
+    </div>
+</div>
+</div>
+</div>

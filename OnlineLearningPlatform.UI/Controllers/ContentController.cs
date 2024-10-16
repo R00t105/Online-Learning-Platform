@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.DAL.Entities;
@@ -15,6 +16,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(int courseId, int? contentId)
         {
             var contents = await _unitOfWork.Contents.FindAllByExpress(c => c.CourseId == courseId);
@@ -30,6 +32,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(contentsAlways);
         }
 
+        [Authorize]
         public async Task<IActionResult> LoadContent(int contentId)
         {
             var contentTexts = await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId);

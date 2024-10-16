@@ -21,6 +21,7 @@
                         <th scope="col">Course ID</th>
                         <th scope="col">Progress State</th>
                         <th scope="col">Progress Percentage</th>
+                        <th scope="col">Enrollment Date</th>
                         <th scope="col" class="col-2">Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                             <td>@enroll.CourseId</td>
                             <td>@enroll.ProgressState</td>
                             <td>@enroll.ProgressPercentage %</td>
+                            <td>@enroll.EnrollmentDate</td>
                             <td class="col-2">
                                 <div class="d-flex justify-content-between w-100">
                                     <form class="col-5" asp-controller="Enrollment" asp-action="Edit" method="get">
