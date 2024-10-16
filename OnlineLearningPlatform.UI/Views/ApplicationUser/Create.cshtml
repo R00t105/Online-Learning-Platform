@@ -1,44 +1,76 @@
-﻿@model ApplicationUser
+﻿@model ApplicationUserViewModel
 @{
     ViewData["Title"] = "Create";
+    // var Roles = (List<IdentityRole<int>>)ViewBag.Roles;
     Layout = "_DashLayout";
 
 }
 
-@* <h1 style="color:#0d6efd">Create</h1>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-start wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-start text-primary px-3">Users</h6>
+            <h1 class="mb-5">Add User</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
 
-<h4 >User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.UserName" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                    <form asp-controller="ApplicationUser" asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Name" class="form-control" placeholder="User Name">
+                                    <label asp-for="@Model.Name">User Name</label>
+                                    <span asp-validation-for="@Model.Name"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Email" class="form-control" placeholder="Email">
+                                    <label asp-for="@Model.Email">Email</label>
+                                    <span asp-validation-for="@Model.Email"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Password" class="form-control" placeholder="Password">
+                                    <label asp-for="@Model.Password">Password</label>
+                                    <span asp-validation-for="@Model.Password"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.BirthDate" class="form-control">
+                                    <label asp-for="@Model.BirthDate">BirthDate</label>
+                                    <span asp-validation-for="@Model.BirthDate"></span>
+
+                                </div>
+                            </div>
+                            <select asp-for="@Model.RoleId" class="form-control">
+                                <option value="">-- Select Role --</option>
+
+                                @foreach (var Role in ViewBag.Roles)
+                                {
+                                    <option value="@Role.Id">@Role.Name</option>
+                                }
+
+                            </select>
+                            <span asp-validation-for="@Model.RoleId"></span>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Create</button>
+                                <br />
+                                <a asp-controller="Dashboard" asp-action="Users" style="color:var(--dark)">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="@Model.p" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" />
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-} *@

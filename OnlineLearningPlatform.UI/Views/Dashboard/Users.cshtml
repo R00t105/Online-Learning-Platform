@@ -7,7 +7,7 @@
 
 <!-- Table Start -->
 <div class="container-fluid px-4">
-    <a asp-action="CreateUser" class="btn btn-primary mb-3">Add New User</a>
+    <a asp-controller="ApplicationUser" asp-action="Create" class="btn btn-primary mb-3">Add New User</a>
 
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -48,8 +48,8 @@
                                 }
                                 </td>
                             <td>
-                                <a asp-controller="Dashboard" asp-action="EditUser" asp-route-id="@User.Id" class="btn btn-sm btn-success">Edit</a>
-                                <a asp-controller="Dashboard" asp-action="DeleteUser" asp-route-id="@User.Id" class="btn btn-sm btn-danger">Delete</a>
+                                <a asp-controller="ApplicationUser" asp-action="Edit" asp-route-id="@User.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="ApplicationUser" asp-action="Delete" asp-route-id="@User.Id" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                         </tr>
                         }
