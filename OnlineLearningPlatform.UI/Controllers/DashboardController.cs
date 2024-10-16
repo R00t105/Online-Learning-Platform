@@ -13,6 +13,7 @@ namespace OnlineLearningPlatform.UI.Controllers
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        static string SearchType;
 
         public DashboardController(IUnitOfWork unitOfWork)
         {
@@ -33,6 +34,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Users
         public async Task<IActionResult> Users()
         {
+            SearchType = "Users";
             var users = await _unitOfWork.ApplicationUsers.GetAllAsync();
             var userViewModels = users.Select(user => new ApplicationUserViewModel
             {
@@ -101,6 +103,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Courses
         public async Task<IActionResult> Courses()
         {
+            SearchType = "Courses";
             var courses = await _unitOfWork.Courses.GetAllAsync();
             var courseViewModels = courses.Select(course => new CourseViewModel
             {
@@ -120,6 +123,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Tracks
         public async Task<IActionResult> Tracks()
         {
+            SearchType = "Tracks";
             var Tracks = await _unitOfWork.Tracks.GetAllAsync();
             var trackViewModels = Tracks.Select(track => new TrackViewModel
             {
@@ -137,6 +141,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Content
         public async Task<IActionResult> Content()
         {
+            
             var contentItems = await _unitOfWork.Contents.GetAllAsync();
             var contentViewModels = contentItems.Select(content => new ContentViewModel
             {
@@ -201,7 +206,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         #region Enrollment
         public async Task<IActionResult> Enrollments()
-        {
+        { 
             var enrollments = await _unitOfWork.Enrollments.GetAllAsync();
             var enrollmentViewModels = enrollments.Select(enrollment => new EnrollmentViewModel
             {
@@ -217,7 +222,64 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(enrollmentViewModels);
         }
 
-       
+
         #endregion
+
+        #region Search
+        public async Task<IActionResult> Search(string searchquery)
+        {
+
+            if (SearchType == "Users")
+            {
+                    if (string.IsNullOrEmpty(searchquery))
+                    {
+                       return RedirectToAction("Users");
+                     }
+                var users = await _unitOfWork.ApplicationUsers.FindAllByExpress(u => u.UserName.Contains(searchquery));
+                var userviewmodel = users.Select(u => new ApplicationUserViewModel
+                {
+                    Id = u.Id,
+                    Name = u.UserName,
+                    Email = u.Email,
+                    RegistrationDate = u.RegistrationDate,
+                    BirthDate = u.BirthDate
+                }).ToList();
+
+                return View("Users", userviewmodel);
+            }
+            else if (SearchType == "Courses")
+            {
+                if (string.IsNullOrEmpty(searchquery))
+                {
+                    return RedirectToAction("Courses");
+                }
+                var courses = await _unitOfWork.Courses.FindAllByExpress(c=>c.Title.Contains(searchquery));
+                var courseViewModels = courses.Select(course => new CourseViewModel
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    CreationDate = course.CreationDate,
+                    TrackId = course.TrackId
+                }).ToList();
+                return View("Courses", courseViewModels);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(searchquery))
+                {
+                    return RedirectToAction("Tracks");
+                }
+                var Tracks = await _unitOfWork.Tracks.FindAllByExpress(t=>t.Name.Contains(searchquery));
+                var trackViewModels = Tracks.Select(track => new TrackViewModel
+                {
+                    Id = track.Id,
+                    Name = track.Name,
+                    Description = track.Description,
+                }).ToList();
+                return View("Tracks", trackViewModels);
+            }
+        }
+          #endregion
     }
 }
