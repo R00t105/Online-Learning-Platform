@@ -12,7 +12,7 @@
         @foreach (var content in Model)
         {
             <li class="nav-item mb-3">
-                <a href="javascript:void(0);" class="btn btn-secondary nav-link rounded-3"
+                <a href="javascript:void(0);" class="btn btn-secondary my-nav-link rounded-3"
                    onclick="loadContent(@content.Id)">
                     @content.Title
                 </a>
@@ -80,7 +80,6 @@
 
         .my-nav-link:hover{
         background: #06bbcc;
-        display:block;
         color:white;
         }
 

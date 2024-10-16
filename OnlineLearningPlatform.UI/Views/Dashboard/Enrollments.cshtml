@@ -34,22 +34,22 @@
                             <td>@enroll.CourseId</td>
                             <td>@enroll.ProgressState</td>
                             <td>@enroll.ProgressPercentage %</td>
-                            <td class="col-2  "style="display:flex;justify-content:space-between;">
-                                
-                                <form asp-controller="Enrollment" asp-action="Edit" method="get" >
-                                    <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
-                                    <input type="hidden" name="CourseId" value="@enroll.CourseId"/>
-                                    <button type="submit" class="btn btn-sm btn-success">Edit</button>
-                                </form>
+                            <td class="col-2">
+                                <div class="d-flex justify-content-between w-100">
+                                    <form class="col-5" asp-controller="Enrollment" asp-action="Edit" method="get">
+                                        <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
+                                        <input type="hidden" name="CourseId" value="@enroll.CourseId" />
+                                        <button type="submit" class="btn btn-sm btn-success w-100">Edit</button>
+                                    </form>
 
-
-                                <form asp-controller="Enrollment" asp-action="Delete" method="get">
-                                    <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
-                                    <input type="hidden" name="CourseId" value="@enroll.CourseId" />
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                                
+                                    <form class="col-6" asp-controller="Enrollment" asp-action="Delete" method="get">
+                                        <input type="hidden" name="ApplicationUserId" value="@enroll.ApplicationUserId" />
+                                        <input type="hidden" name="CourseId" value="@enroll.CourseId" />
+                                        <button type="submit" class="btn btn-sm btn-danger w-100">Delete</button>
+                                    </form>
+                                </div>
                             </td>
+
                         </tr>
                     }
                     
