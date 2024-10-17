@@ -39,7 +39,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             var contentTexts = await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId);
             return PartialView("_ContentDetailsPartial", contentTexts);
-        } 
+        }
 
 
         #endregion
