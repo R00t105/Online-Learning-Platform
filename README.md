@@ -37,7 +37,7 @@ The objective of this project is to create a full-featured online learning platf
   - View Models
 
 
-##Project Duration
+## Project Duration
 The entire project was completed within 5 days.
 
 ## Database Design
