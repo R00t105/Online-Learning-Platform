@@ -36,6 +36,10 @@ The objective of this project is to create a full-featured online learning platf
   - Views
   - View Models
 
+
+**Project Duration**
+The entire project was completed within 5 days.
+
 ## Database Design
 The project utilizes a well-structured **ERD** and database **schema** to ensure smooth data operations and relationships between users, courses, and progress tracking.
 
