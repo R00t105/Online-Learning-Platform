@@ -49,4 +49,4 @@ To run the project locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/DEPI-Online-Learning-Platform.git
+   git clone https://github.com/R00t105/Online-Learning-Platform.git
