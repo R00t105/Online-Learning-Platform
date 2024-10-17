@@ -1,0 +1,76 @@
+﻿@model ContentTextViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    var contents = (List<Content>)ViewBag.Contents;
+    Layout = "_DashLayout";
+}
+
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-start wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-start text-primary px-3">ContentTexts</h6>
+            <h1 class="mb-5">Create ContentTexts</h1>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
+
+                    <form asp-controller="ContentText" asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.Title" class="form-control" placeholder="ContentText Title">
+                                    <label asp-for="@Model.Title"> Title</label>
+                                    <span asp-validation-for="@Model.Title"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="@Model.SubTitle" class="form-control" placeholder="SubTitle">
+                                    <label asp-for="@Model.SubTitle">SubTitle</label>
+                                    <span asp-validation-for="@Model.SubTitle"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea asp-for="@Model.Paragraph" rows="10" cols="50" class="form-control" placeholder="Paragraph"></textarea>
+                                    <label asp-for="@Model.Paragraph">Paragraph</label>
+                                    <span asp-validation-for="@Model.Paragraph"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select asp-for="@Model.ContentId" class="form form-control">
+                                        <option value="">-- Select Content --</option>
+
+                                        @foreach (var Content in contents)
+                                        {
+                                            <option value="@Content.Id">@Content.Title</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Create</button>
+                                <br />
+                                <a asp-controller="Dashboard" asp-action="ContentTexts" style="color:var(--dark)">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

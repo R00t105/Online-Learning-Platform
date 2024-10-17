@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineLearningPlatform.UI.ViewModels.ContentTextViewModel>
+
+@{
+    ViewData["Title"] = "Contents";
+    Layout = "_DashLayout";
+}
+
+
+
+
+
+<div class="container-fluid px-4">
+    <a asp-controller="ContentText" asp-action="Create" class="btn btn-primary mb-3">Add New ContentText</a>
+
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">ContentTexts</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">SubTitle</th>
+                        <th scope="col">Content ID</th>
+                        <th scope="col" class="col-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var content in Model)
+                    {
+
+                        <tr>
+                            <td>@content.Id</td>
+                            <td>@content.Title</td>
+                            <td>@content.SubTitle</td>
+                            <td>@content.ContentId</td>
+                            <td class="col-2">
+                                <a asp-controller="ContentText" asp-action="Edit" asp-route-id="@content.Id" class="btn btn-sm btn-success">Edit</a>
+                                <a asp-controller="ContentText" asp-action="Delete" asp-route-id="@content.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

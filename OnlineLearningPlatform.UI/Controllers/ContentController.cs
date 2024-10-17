@@ -95,6 +95,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 Content content = new Content();
                 content.Id = contentViewModel.Id;
                 content.Title = contentViewModel.Title;
+                content.VideoUrl = contentViewModel.VideoUrl;
                 content.CourseId = contentViewModel.CourseId;
                 await _unitOfWork.Contents.AddAsync(content);
                 return RedirectToAction("Contents","Dashboard");
@@ -184,6 +185,8 @@ namespace OnlineLearningPlatform.UI.Controllers
             {
                 return NotFound();
             }
+            Course course=await _unitOfWork.Courses.GetByIdAsync(content.CourseId);
+            ViewBag.coursename=course.Title.ToString();
 
             return View(content);
         }

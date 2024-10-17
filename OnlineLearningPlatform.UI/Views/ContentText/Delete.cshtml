@@ -1,16 +1,15 @@
-﻿@model OnlineLearningPlatform.DAL.Entities.Content
-
+﻿@model ContentText
 @{
     ViewData["Title"] = "Delete";
     Layout = "_DashLayout";
-    var coursetitle = (string)ViewBag.coursename;
+    var ContentTitle = (string)ViewBag.contentname;
 }
 
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Content</h4>
+    <h4>ContentText</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -20,22 +19,23 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VideoUrl)
+            @Html.DisplayNameFor(model => model.SubTitle)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VideoUrl)
+            @Html.DisplayFor(model => model.SubTitle)
         </dd>
         <dt class="col-sm-2">
-            CourseTitle
+            ContentTitle
         </dt>
         <dd class="col-sm-10">
-            @coursetitle
+            @ContentTitle
         </dd>
     </dl>
 
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-controller="Dashboard" asp-action="Contents">Back to List</a>
+        <a asp-controller="Dashboard" asp-action="ContentTexts">Back to List</a>
     </form>
 </div>
+

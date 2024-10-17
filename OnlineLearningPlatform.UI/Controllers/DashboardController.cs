@@ -113,6 +113,24 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         #endregion
 
+        #region ContentTexts
+        public async Task<IActionResult> ContentTexts()
+        {
+            SearchType = "ContentTexts";
+            var contenttextsItems = await _unitOfWork.ContentTexts.GetAllAsync();
+            var contenttextViewModels = contenttextsItems.Select(content => new ContentTextViewModel
+            {
+                Id = content.Id,
+                Title = content.Title,
+                SubTitle = content.SubTitle,
+                ContentId = content.ContentId
+            }).ToList();
+
+            return View(contenttextViewModels);
+        }
+        #endregion
+
+
         #region Enrollment
         public async Task<IActionResult> Enrollments()
         {
@@ -134,6 +152,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
 
         #endregion
+
 
         #region Search
         public async Task<IActionResult> Search(string searchquery)
@@ -190,6 +209,22 @@ namespace OnlineLearningPlatform.UI.Controllers
                     CourseId = content.CourseId
                 }).ToList();
                 return View("Contents", contentViewModels);
+            }
+            else if(SearchType== "ContentTexts")
+            {
+                if (string.IsNullOrEmpty(searchquery))
+                {
+                    return RedirectToAction("ContentTexts");
+                }
+                var contenttextItems = await _unitOfWork.ContentTexts.FindAllByExpress(c => c.Title.Contains(searchquery));
+                var contenttextViewModels = contenttextItems.Select(content => new ContentTextViewModel
+                {
+                    Id = content.Id,
+                    Title = content.Title,
+                    SubTitle = content.SubTitle,
+                    ContentId = content.ContentId
+                }).ToList();
+                return View("ContentTexts", contenttextViewModels);
             }
             else if(SearchType== "Tracks")
             {
