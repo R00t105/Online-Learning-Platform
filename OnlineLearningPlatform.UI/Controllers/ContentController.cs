@@ -34,10 +34,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(contentsAlways);
         }
 
-        #endregion
-
-        #region Load Content
-
         [Authorize]
         public async Task<IActionResult> LoadContent(int contentId)
         {
@@ -45,8 +41,8 @@ namespace OnlineLearningPlatform.UI.Controllers
             return PartialView("_ContentDetailsPartial", contentTexts);
         } 
 
-        #endregion
 
+        #endregion
 
         public async Task<IActionResult> ShowTextOfContent(int contentId)
         {
@@ -143,7 +139,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(content);
         }
 
-        // GET: Content/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +155,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(content);
         }
 
-        // POST: Content/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
