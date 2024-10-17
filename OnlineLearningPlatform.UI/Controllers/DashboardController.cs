@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.ContentModel;
 using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.DAL.Entities;
 using OnlineLearningPlatform.UI.ViewModels; // Add this line to include the ViewModels
@@ -26,6 +27,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Index
         public async Task<IActionResult> Index()
         {
+            SearchType = "Index";
             ViewBag.Enrollments = await _unitOfWork.Enrollments.GetAllAsync();
             ViewBag.UsersNom = await _unitOfWork.ApplicationUsers.GetAllAsync();
             ViewBag.TracksNom = await _unitOfWork.Tracks.GetAllAsync();
@@ -96,7 +98,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         #region Content
         public async Task<IActionResult> Contents()
         {
-            
+            SearchType = "Contents";
             var contentItems = await _unitOfWork.Contents.GetAllAsync();
             var contentViewModels = contentItems.Select(content => new ContentViewModel
             {
@@ -113,7 +115,8 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         #region Enrollment
         public async Task<IActionResult> Enrollments()
-        { 
+        {
+            SearchType = "Enrollments";
             var enrollments = await _unitOfWork.Enrollments.GetAllAsync();
             var enrollmentViewModels = enrollments.Select(enrollment => new EnrollmentViewModel
             {
@@ -141,7 +144,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                     if (string.IsNullOrEmpty(searchquery))
                     {
                        return RedirectToAction("Users");
-                     }
+                    }
                 var users = await _unitOfWork.ApplicationUsers.FindAllByExpress(u => u.UserName.Contains(searchquery));
                 var userviewmodel = users.Select(u => new ApplicationUserViewModel
                 {
@@ -149,8 +152,9 @@ namespace OnlineLearningPlatform.UI.Controllers
                     Name = u.UserName,
                     Email = u.Email,
                     RegistrationDate = u.RegistrationDate,
-                    BirthDate = u.BirthDate
-                }).ToList();
+                    BirthDate = u.BirthDate,
+                    Roles = _userManager.GetRolesAsync(u).Result.ToList()
+                }).ToList(); 
 
                 return View("Users", userviewmodel);
             }
@@ -171,7 +175,23 @@ namespace OnlineLearningPlatform.UI.Controllers
                 }).ToList();
                 return View("Courses", courseViewModels);
             }
-            else
+            else if (SearchType == "Contents")
+            {
+                if (string.IsNullOrEmpty(searchquery))
+                {
+                    return RedirectToAction("Contents");
+                }
+                var contentItems = await _unitOfWork.Contents.FindAllByExpress(c => c.Title.Contains(searchquery));
+                var contentViewModels = contentItems.Select(content => new ContentViewModel
+                {
+                    Id = content.Id,
+                    Title = content.Title,
+                    VideoUrl = content.VideoUrl,
+                    CourseId = content.CourseId
+                }).ToList();
+                return View("Contents", contentViewModels);
+            }
+            else if(SearchType== "Tracks")
             {
                 if (string.IsNullOrEmpty(searchquery))
                 {
@@ -185,6 +205,16 @@ namespace OnlineLearningPlatform.UI.Controllers
                     Description = track.Description,
                 }).ToList();
                 return View("Tracks", trackViewModels);
+            }
+            else if(SearchType== "Enrollments")
+            {
+              
+              return RedirectToAction("Enrollments");
+              
+            }
+            else
+            {
+                return RedirectToAction("Index");
             }
         }
           #endregion

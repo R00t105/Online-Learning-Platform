@@ -1,4 +1,4 @@
-﻿@model Content
+﻿@model ContentViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -17,7 +17,7 @@
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="wow fadeInUp" data-wow-delay="0.5s">
 
-                    <form asp-controller="Content" asp-action="Create">
+                    <form asp-controller="Content" asp-action="Create" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="row g-3 my-3">
                             <div class="col-md-12">

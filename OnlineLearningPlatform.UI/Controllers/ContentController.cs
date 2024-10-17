@@ -15,7 +15,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
+        #region Index
         [Authorize]
         public async Task<IActionResult> Index(int courseId, int? contentId)
         {
@@ -31,15 +31,18 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View(contentsAlways);
         }
+        #endregion
 
+        #region LoadContent
         [Authorize]
         public async Task<IActionResult> LoadContent(int contentId)
         {
             var contentTexts = await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId);
             return PartialView("_ContentDetailsPartial", contentTexts);
         }
+        #endregion
 
-
+        #region ShowTextOfContent
         public async Task<IActionResult> ShowTextOfContent(int contentId)
         {
             var content = await _unitOfWork.Contents.FindByExpress(c => c.Id == contentId);
@@ -61,6 +64,10 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View();
         }
+        #endregion
+
+
+        #region Create
 
         // GET: Content/Create
         public async Task<IActionResult> Create()
@@ -72,20 +79,25 @@ namespace OnlineLearningPlatform.UI.Controllers
         // POST: Content/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,CourseId")] Content content)
+        public async Task<IActionResult> Create([Bind("Id,Title,VideoUrl,CourseId")] ContentViewModel contentViewModel)
         {
             if (ModelState.IsValid)
             {
+                Content content = new Content();
+                content.Id = contentViewModel.Id;
+                content.Title = contentViewModel.Title;
+                content.CourseId = contentViewModel.CourseId;
                 await _unitOfWork.Contents.AddAsync(content);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Contents","Dashboard");
             }
 
             // Repopulate the Courses list when the ModelState is invalid
             ViewBag.Courses = await _unitOfWork.Courses.GetAllAsync();
-            return View(content);
+            return View(contentViewModel);
         }
+        #endregion
 
-
+        #region Edit
         // GET: Content/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -99,23 +111,32 @@ namespace OnlineLearningPlatform.UI.Controllers
             {
                 return NotFound();
             }
-            return View(content);
+            ContentViewModel contentViewModel = new ContentViewModel() { Id=content.Id,Title=content.Title,VideoUrl=content.VideoUrl,CourseId=content.CourseId};
+            ViewBag.Courses = await _unitOfWork.Courses.GetAllAsync();
+            return View(contentViewModel);
         }
+        
+
 
         // POST: Content/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CourseId")] Content content)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,VideoUrl,CourseId")] ContentViewModel contentViewModel)
         {
-            if (id != content.Id)
+            if (id != contentViewModel.Id)
             {
                 return NotFound();
             }
+            Content content = await _unitOfWork.Contents.GetByIdAsync(id);
+            content.Title= contentViewModel.Title;
+            content.VideoUrl= contentViewModel.VideoUrl;
+            content.CourseId= contentViewModel.CourseId;
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    
                     await _unitOfWork.Contents.UpdateAsync(content);
                     await _unitOfWork.Complete();
                 }
@@ -130,11 +151,15 @@ namespace OnlineLearningPlatform.UI.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Contents", "Dashboard");
             }
-            return View(content);
+            ViewBag.Courses = await _unitOfWork.Courses.GetAllAsync();
+            return View(contentViewModel);
         }
+        #endregion
 
+
+        #region Delete
         // GET: Content/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -163,14 +188,17 @@ namespace OnlineLearningPlatform.UI.Controllers
                 await _unitOfWork.Contents.RemoveAsync(id);
                 await _unitOfWork.Complete();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Contents", "Dashboard");
         }
+        #endregion
 
+
+        #region ContentExists
         private async Task<bool> ContentExists(int id)
         {
             var content = await _unitOfWork.Contents.GetByIdAsync(id);
             return content != null;
         }
-
+        #endregion
     }
 }

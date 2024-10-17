@@ -16,13 +16,17 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        #region Index
         // GET: Track/Index
         public async Task<IActionResult> Index()
         {
             var tracks = await _unitOfWork.Tracks.GetAllAsync();
             return View(tracks);
         }
+        #endregion 
 
+
+        #region ShowCourses
 
         [HttpGet]
         public async Task<IActionResult> ShowCourses(int trackId)
@@ -33,9 +37,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             ViewBag.TrackName = Track.Name.ToString();
             return View("ShowCourses", Courses);
         }
+        #endregion
 
 
-
+        #region Details
         // GET: Track/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -52,7 +57,10 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View(track);
         }
+        #endregion
 
+
+        #region Create
         // GET: Track/Create
         public async Task<IActionResult> Create()
         {
@@ -72,7 +80,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             return View(track);
         }
+        #endregion
 
+
+        #region Edit
         // GET: Track/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -121,7 +132,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             return View(track);
         }
+        #endregion
 
+
+        #region Delete
         // GET: Track/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -152,11 +166,15 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             return RedirectToAction("Tracks", "Dashboard");
         }
+        #endregion
 
+
+        #region TrackExists
         private async Task<bool> TrackExists(int id)
         {
             var track = await _unitOfWork.Tracks.GetByIdAsync(id);
             return track != null;
         }
+        #endregion
     }
 }

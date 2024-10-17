@@ -24,7 +24,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             this.userManager = userManager;
         }
 
-
+        #region Prifile
         [Authorize]
         public async Task<IActionResult> Profile()
         {
@@ -46,6 +46,10 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View(model);
         }
+        #endregion
+
+
+        #region Edit
         public async Task<IActionResult> Edit(int id)
         {
             ApplicationUser user = await _iUnitOfWork.ApplicationUsers.GetByIdAsync(id);
@@ -77,6 +81,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(New);  
          
         }
+        #endregion
+
+
+        #region Create
         public IActionResult Create()
         {
             return View();
@@ -95,7 +103,10 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             return View(user);
         }
+        #endregion
 
+
+        #region DeleteCourse
         public async Task<IActionResult> DeleteCourse(int userid,int courseId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -108,5 +119,6 @@ namespace OnlineLearningPlatform.UI.Controllers
              enrollmentRepository.Remove(userid,courseId);
             return RedirectToAction("Profile");
         }
+        #endregion
     }
 }

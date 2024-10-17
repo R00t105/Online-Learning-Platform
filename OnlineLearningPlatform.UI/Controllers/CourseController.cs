@@ -15,12 +15,16 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
-     
+        #region Index
         public async Task<IActionResult> Index()
         {
             var Courses = await _unitOfWork.Courses.GetAllAsync();
             return View(Courses);
         }
+        #endregion
+
+
+        #region CourseData
         public async Task<IActionResult> CourseData(int? id)
         {
             CourseWithContentsViewModel courseWithContents = new CourseWithContentsViewModel();
@@ -46,6 +50,10 @@ namespace OnlineLearningPlatform.UI.Controllers
 
             return View(courseWithContents);
         }
+        #endregion
+
+
+        #region Create
         public async Task<IActionResult> Create()
         {
             var tracks = await _unitOfWork.Tracks.GetAllAsync();
@@ -66,8 +74,11 @@ namespace OnlineLearningPlatform.UI.Controllers
             ViewBag.tracks= await _unitOfWork.Tracks.GetAllAsync();
             return View(courseViewModel);
         }
+        #endregion
 
-      
+
+        #region Edit
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -115,8 +126,11 @@ namespace OnlineLearningPlatform.UI.Controllers
             ViewBag.tracks = await _unitOfWork.Tracks.GetAllAsync();
             return View(course);
         }
+        #endregion
 
-       
+
+        #region Delete
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,7 +162,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             }
             return RedirectToAction("Courses", "Dashboard");
         }
-
+        #endregion
 
     }
 }

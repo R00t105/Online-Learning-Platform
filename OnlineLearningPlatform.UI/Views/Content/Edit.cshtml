@@ -1,7 +1,8 @@
-﻿@model OnlineLearningPlatform.DAL.Entities.Content
+﻿@model ContentViewModel
 
 @{
     ViewData["Title"] = "Edit";
+    var Courses = (List<Course>)ViewBag.Courses;
     Layout = "_DashLayout";
 }
 
@@ -10,8 +11,8 @@
 <h4>Content</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-4" >
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -25,8 +26,21 @@
                 <span asp-validation-for="VideoUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <input asp-for="CourseId" class="form-control" />
+                <select asp-for="@Model.CourseId" class="form form-control">
+                    <option value="">-- Select Course --</option>
+
+                    @foreach (var Course in Courses)
+                    {
+                        if(Course.Id==Model.CourseId)
+                        {
+                            <option value="@Course.Id" selected="selected">@Course.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@Course.Id" >@Course.Title</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="CourseId" class="text-danger"></span>
             </div>
             <div class="form-group">
