@@ -147,6 +147,8 @@ namespace OnlineLearningPlatform.UI.Controllers
                 CourseId = enrollment.CourseId
             }).ToList();
 
+            ViewBag.Enrollments = await _unitOfWork.Enrollments.GetAllAsync();
+
             return View(enrollmentViewModels);
         }
 

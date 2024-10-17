@@ -1,4 +1,7 @@
-﻿<!-- Navbar Start -->
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!-- Navbar Start -->
 
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
 
@@ -13,6 +16,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
 
         <div class="navbar-nav ms-auto p-4 p-lg-0">
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <a asp-controller="Dashboard" asp-action="Index" class="nav-item nav-link">Dashboard</a>
+            }
             <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Home</a>
             <a asp-controller="Course" asp-action="Index" class="nav-item nav-link">Courses</a>
             <a asp-controller="Track" asp-action="Index" class="nav-item nav-link">Tracks</a>

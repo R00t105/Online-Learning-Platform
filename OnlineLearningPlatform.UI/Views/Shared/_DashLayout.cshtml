@@ -80,6 +80,10 @@
                 <input class="form-control border-0" type="search" name="searchquery" placeholder="Search">
             </form>
             <div class="navbar-nav align-items-center ms-auto">
+
+                    <a asp-controller="Home" asp-action="Index" class="nav-item nav-link nav-item-link"><i class="fa fa-home me-2"></i>Home Page</a>
+
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <span class="d-none d-lg-inline-flex">@User.Identity.Name</span>
