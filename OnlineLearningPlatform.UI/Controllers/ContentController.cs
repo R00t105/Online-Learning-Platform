@@ -15,7 +15,11 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
+
         #region Index
+
+
         [Authorize]
         public async Task<IActionResult> Index(int courseId, int? contentId)
         {
@@ -42,7 +46,12 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
         #endregion
 
+
         #region ShowTextOfContent
+
+
+
+
         public async Task<IActionResult> ShowTextOfContent(int contentId)
         {
             var content = await _unitOfWork.Contents.FindByExpress(c => c.Id == contentId);
@@ -159,8 +168,10 @@ namespace OnlineLearningPlatform.UI.Controllers
         #endregion
 
 
+
         #region Delete
         // GET: Content/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -177,7 +188,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(content);
         }
 
-        // POST: Content/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
