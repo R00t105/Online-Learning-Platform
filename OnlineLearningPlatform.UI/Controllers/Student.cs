@@ -25,6 +25,8 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
 
+        #region Profile
+
         [Authorize]
         public async Task<IActionResult> Profile()
         {
@@ -45,7 +47,9 @@ namespace OnlineLearningPlatform.UI.Controllers
             ViewBag.Enrollments = await _iUnitOfWork.Enrollments.FindAllByExpress(e => e.ApplicationUserId == user.Id);
 
             return View(model);
-        }
+        } 
+
+        #endregion
         public async Task<IActionResult> Edit(int id)
         {
             ApplicationUser user = await _iUnitOfWork.ApplicationUsers.GetByIdAsync(id);
@@ -82,7 +86,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View();
         }
 
-        // POST: user/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,UserName,Email,RegistrationDate,BirthDate")] ApplicationUser user)

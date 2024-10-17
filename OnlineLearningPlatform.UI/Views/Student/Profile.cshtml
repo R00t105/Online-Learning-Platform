@@ -70,7 +70,7 @@
                                 <p class="course-enroll-date">Enrolled Date: @enroll.EnrollmentDate</p>
                                 <!-- Action Buttons -->
                                 <div class="course-actions">
-                                    <a asp-controller="Course"  asp-action="CourseDetails" asp-route-id="@enroll.Course.Id" class="btn btn-primary btn-sm">Go to Course</a>
+                                    <a asp-controller="Content" asp-action="Index" asp-route-courseId="@enroll.Course.Id" class="btn btn-primary btn-sm">Go to Course</a>
                                 </div>
                             </div>
 

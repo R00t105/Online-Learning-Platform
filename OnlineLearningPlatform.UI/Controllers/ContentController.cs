@@ -16,6 +16,8 @@ namespace OnlineLearningPlatform.UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        #region Index
+
         [Authorize]
         public async Task<IActionResult> Index(int courseId, int? contentId)
         {
@@ -32,12 +34,18 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(contentsAlways);
         }
 
+        #endregion
+
+        #region Load Content
+
         [Authorize]
         public async Task<IActionResult> LoadContent(int contentId)
         {
             var contentTexts = await _unitOfWork.ContentTexts.FindAllByExpress(ct => ct.ContentId == contentId);
             return PartialView("_ContentDetailsPartial", contentTexts);
-        }
+        } 
+
+        #endregion
 
 
         public async Task<IActionResult> ShowTextOfContent(int contentId)
