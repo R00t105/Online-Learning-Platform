@@ -53,7 +53,7 @@
         </dl>
 
         <form asp-controller="Enrollment" asp-action="Delete" method="post">
-            <input type="hidden" name="ApplicationUserId" value="@Model.ApplicationUserId"/>
+            <input type="hidden" name="ApplicationUserId" value="@Model.ApplicationUserId" />
             <input type="hidden" name="CourseId" value="@Model.CourseId" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
             <a asp-controller="Dashboard" asp-action="Enrollments" style="color:var(--dark)">Back to List</a>

@@ -130,7 +130,6 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
         #endregion
 
-
         #region Enrollment
         public async Task<IActionResult> Enrollments()
         {
@@ -154,7 +153,6 @@ namespace OnlineLearningPlatform.UI.Controllers
 
 
         #endregion
-
 
         #region Search
         public async Task<IActionResult> Search(string searchquery)

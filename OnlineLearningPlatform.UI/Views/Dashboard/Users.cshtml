@@ -29,15 +29,15 @@
                 <tbody>
 
                     @foreach (var User in Model)
-                        {
+                    {
 
                         <tr>
-                                <td>@User.Id</td>
-                                <td>@User.Name</td>
-                                <td>@User.Email</td>
-                                <td>@User.RegistrationDate</td>
-                                <td>@User.BirthDate</td>
-                                <td>
+                            <td>@User.Id</td>
+                            <td>@User.Name</td>
+                            <td>@User.Email</td>
+                            <td>@User.RegistrationDate</td>
+                            <td>@User.BirthDate</td>
+                            <td>
                                 @if (User.Roles.Any())
                                 {
                                     @string.Join(", ", User.Roles)
@@ -46,14 +46,14 @@
                                 {
                                     <span>No Role</span>
                                 }
-                                </td>
+                            </td>
                             <td>
                                 <a asp-controller="ApplicationUser" asp-action="Edit" asp-route-id="@User.Id" class="btn btn-sm btn-success">Edit</a>
                                 <a asp-controller="ApplicationUser" asp-action="Delete" asp-route-id="@User.Id" class="btn btn-sm btn-danger">Delete</a>
-                                </td>
+                            </td>
                         </tr>
-                        }
-                    
+                    }
+
 
                 </tbody>
             </table>
@@ -61,4 +61,3 @@
     </div>
 </div>
 <!-- Table End -->
-
