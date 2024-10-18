@@ -9,6 +9,5 @@ namespace OnlineLearningPlatform.UI.ViewModels
         public string? Description { get; set; }
         public DateTime? CreationDate { get; set; }
         public int TrackId { get; set; }
-        //List<Track> Tracks { get; set; }
     }
 }

@@ -21,6 +21,7 @@
                         <th scope="col">Course Name</th>
                         <th scope="col">Course Description</th>
                         <th scope="col">Created Date</th>
+                        <th scope="col">TrackId</th>
                         <th scope="col" class="col-2">Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                             <td>@course.Title</td>
                             <td>@course.Description</td>
                             <td>@course.CreationDate</td>
+                            <td>@course.TrackId</td>
                             <td class="col-2">
                                 <a asp-controller="Course" asp-action="Edit" asp-route-id="@course.Id" class="btn btn-sm btn-success">Edit</a>
                                 <a asp-controller="Course" asp-action="Delete" asp-route-id="@course.Id" class="btn btn-sm btn-danger">Delete</a>

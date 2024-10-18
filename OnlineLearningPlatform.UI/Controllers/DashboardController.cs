@@ -62,7 +62,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         {
             SearchType = "Courses";
             var courses = await _unitOfWork.Courses.GetAllAsync();
-            var courseViewModels = courses.Select(course => new CourseViewModel
+            var courseViewModels = courses.Select( course => new CourseViewModel
             {
                 Id = course.Id,
                 Title = course.Title,
@@ -70,7 +70,7 @@ namespace OnlineLearningPlatform.UI.Controllers
                 CreationDate = course.CreationDate,
                 TrackId = course.TrackId
             }).ToList();
-
+            
             return View(courseViewModels);
         }
 
