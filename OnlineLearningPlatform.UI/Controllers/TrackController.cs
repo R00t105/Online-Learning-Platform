@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.BLL.Interfaces;
@@ -17,7 +18,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         #region Index
-        // GET: Track/Index
+       
         public async Task<IActionResult> Index()
         {
             var tracks = await _unitOfWork.Tracks.GetAllAsync();
@@ -40,34 +41,15 @@ namespace OnlineLearningPlatform.UI.Controllers
         #endregion
 
 
-        #region Details
-        // GET: Track/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var track = await _unitOfWork.Tracks.GetByIdAsync(id.Value);
-            if (track == null)
-            {
-                return NotFound();
-            }
-
-            return View(track);
-        }
-        #endregion
-
-
         #region Create
-        // GET: Track/Create
+        [Authorize("Admin")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: Track/Create
+       
+        [Authorize("Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Track track)
@@ -85,6 +67,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         #region Edit
         // GET: Track/Edit/5
+        [Authorize("Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,6 +84,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         // POST: Track/Edit/5
+        [Authorize("Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate")] Track track)
@@ -133,9 +117,11 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(track);
         }
         #endregion
-
+        
 
         #region Delete
+        [Authorize("Admin")]
+        
         // GET: Track/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -154,6 +140,7 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
 
         // POST: Track/Delete/5
+        [Authorize("Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -161,8 +148,8 @@ namespace OnlineLearningPlatform.UI.Controllers
             var track = await _unitOfWork.Tracks.GetByIdAsync(id);
             if (track != null)
             {
-                _unitOfWork.Tracks.RemoveAsync(id);
-                _unitOfWork.Complete();
+                await _unitOfWork.Tracks.RemoveAsync(id);
+               await _unitOfWork.Complete();
             }
             return RedirectToAction("Tracks", "Dashboard");
         }
