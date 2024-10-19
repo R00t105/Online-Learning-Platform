@@ -25,6 +25,9 @@ namespace OnlineLearningPlatform.DAL.Data.Configurations
             builder.Property(co => co.VideoUrl)
                 .IsRequired(false);
 
+            builder.Property(co => co.IsRead)
+                .HasDefaultValue(false);
+
             builder.HasOne<Course>(co => co.Course)
                 .WithMany(c => c.Contents)
                 .HasForeignKey(co => co.CourseId)

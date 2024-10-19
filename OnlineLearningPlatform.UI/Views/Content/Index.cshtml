@@ -12,7 +12,12 @@
     <ul class="nav flex-column g-3">
         @foreach (var content in Model)
         {
-            <li class="nav-item mb-3">
+            <li class="nav-item mb-3 d-flex align-items-center">
+                <!-- Checkbox to mark content as read -->
+                <input type="checkbox" class="form-check-input me-2"
+                       id="isRead_@content.Id" @(content.IsRead ? "checked" : "")
+                       onclick="markAsRead(@content.Id, this.checked)">
+
                 <a href="javascript:void(0);" class="btn btn-secondary my-nav-link rounded-3"
                    onclick="loadContent(@content.Id)">
                     @content.Title
@@ -22,16 +27,58 @@
     </ul>
 </nav>
 
+<!-- Progress Section -->
+<div class="container mt-5 w-50">
+    <h5>Course Progress: <span id="progressPercentage">0%</span></h5>
+    <div class="progress">
+        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>
+
 <!-- Content Section -->
 <div id="contentSection" class="container-fluid">
     <!-- Initially display the first content or nothing -->
     @Html.Partial("_ContentDetailsPartial", (List<ContentText>)ViewBag.ContentTexts)
 </div>
 
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function loadContent(contentId) 
-    {
+    // Function to mark content as read/unread
+    function markAsRead(contentId, isChecked) {
+        $.ajax({
+            url: '@Url.Action("MarkAsRead", "Content")',
+            type: 'POST',
+            data: { contentId: contentId, isRead: isChecked },
+            success: function () {
+                updateProgress();
+            },
+            error: function () {
+                alert("Error updating content status.");
+            }
+        });
+    }
+
+    // Function to update the progress percentage
+    function updateProgress() {
+        $.ajax({
+            url: '@Url.Action("CalculateProgress", "Content")',
+            type: 'GET',
+            data: { courseId: @courseId },
+            success: function (percentage) {
+                $('#progressPercentage').text(percentage + '%');
+                $('#progressBar').css('width', percentage + '%').attr('aria-valuenow', percentage);
+            },
+            error: function () {
+                alert("Error calculating progress.");
+            }
+        });
+    }
+
+    // Function to load content dynamically
+    function loadContent(contentId) {
         $.ajax({
             url: '@Url.Action("LoadContent", "Content")',
             type: 'GET',
@@ -44,14 +91,14 @@
             }
         });
     }
+
+    // Initial progress calculation
+    $(document).ready(function () {
+        updateProgress();
+    });
 </script>
 
-
-
-
-
 <style>
-
     .sidebar {
         min-height: 100vh;
         background-color: #f8f9fa;
@@ -61,28 +108,23 @@
         top: 75px;
         left: 0;
         width: 250px;
-        z-index:1;
+        z-index: 1;
     }
 
     .content {
         margin-left: 270px;
         padding: 20px;
         margin-top: 56px;
-        z-index:-100;
+        z-index: -100;
     }
 
-        .content h2 {
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 10px;
-        }
-
-        .content p {
-            margin-top: 20px;
-        }
-
-        .my-nav-link:hover{
+    .my-nav-link:hover {
         background: #06bbcc;
-        color:white;
-        }
+        color: white;
+    }
 
+    /* Style for progress bar */
+    .progress-bar {
+        transition: width 0.5s ease;
+    }
 </style>

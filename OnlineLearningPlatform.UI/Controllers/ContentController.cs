@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.BLL.Interfaces;
 using OnlineLearningPlatform.DAL.Entities;
 using OnlineLearningPlatform.UI.ViewModels;
+using System.Security.Claims;
 
 namespace OnlineLearningPlatform.UI.Controllers
 {
     public class ContentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ContentController(IUnitOfWork unitOfWork)
+        public ContentController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
 
@@ -46,7 +50,6 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
         #endregion
 
-
         #region ShowTextOfContent
 
 
@@ -74,7 +77,6 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View();
         }
         #endregion
-
 
         #region Create
 
@@ -168,8 +170,6 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
         #endregion
 
-
-
         #region Delete
         // GET: Content/Delete/5
 
@@ -205,13 +205,54 @@ namespace OnlineLearningPlatform.UI.Controllers
         }
         #endregion
 
-
         #region ContentExists
         private async Task<bool> ContentExists(int id)
         {
             var content = await _unitOfWork.Contents.GetByIdAsync(id);
             return content != null;
         }
+        #endregion
+
+        #region Progress Handling
+
+        [HttpPost]
+        public async Task<IActionResult> MarkAsReadAsync(int contentId, bool isRead)
+        {
+            var content = await _unitOfWork.Contents.GetByIdAsync(contentId);
+            if (content == null)
+            {
+                return NotFound();
+            }
+
+            content.IsRead = isRead;
+            await _unitOfWork.Complete();
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CalculateProgressAsync(int courseId)
+        {
+            var contents = (List<Content>) await _unitOfWork.Contents.FindAllByExpress(c => c.CourseId == courseId);
+
+            if (contents == null || contents.Count == 0)
+            {
+                return Json(0);
+            }
+
+            var readContentsCount = contents.Count(c => c.IsRead);
+            var totalContentsCount = contents.Count;
+
+            var progressPercentage = (readContentsCount / (double)totalContentsCount) * 100;
+
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var enrollment = await _unitOfWork.Enrollments.FindByExpress(e => e.ApplicationUserId == userId && e.CourseId == courseId);
+            enrollment.ProgressPercentage = (int?)progressPercentage;
+            await _unitOfWork.Complete();
+
+            return Json(progressPercentage);
+        }
+
+
         #endregion
     }
 }
