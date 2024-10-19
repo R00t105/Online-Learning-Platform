@@ -42,14 +42,14 @@ namespace OnlineLearningPlatform.UI.Controllers
 
 
         #region Create
-        [Authorize("Admin")]
+     
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
        
-        [Authorize("Admin")]
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Track track)
@@ -67,7 +67,7 @@ namespace OnlineLearningPlatform.UI.Controllers
 
         #region Edit
         // GET: Track/Edit/5
-        [Authorize("Admin")]
+     
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,8 +83,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(track);
         }
 
-        // POST: Track/Edit/5
-        [Authorize("Admin")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate")] Track track)
@@ -120,9 +119,6 @@ namespace OnlineLearningPlatform.UI.Controllers
         
 
         #region Delete
-        [Authorize("Admin")]
-        
-        // GET: Track/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,8 +135,7 @@ namespace OnlineLearningPlatform.UI.Controllers
             return View(track);
         }
 
-        // POST: Track/Delete/5
-        [Authorize("Admin")]
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

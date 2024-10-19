@@ -256,7 +256,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Contents", (string)null);
+                    b.ToTable("Contents");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.ContentText", b =>
@@ -283,7 +283,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("ContentId");
 
-                    b.ToTable("ContentTexts", (string)null);
+                    b.ToTable("ContentTexts");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.Course", b =>
@@ -313,7 +313,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("TrackId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.Enrollment", b =>
@@ -346,7 +346,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Enrollments", (string)null);
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.QuestionAnswer", b =>
@@ -371,7 +371,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("QuizQuestionId");
 
-                    b.ToTable("QuestionAnswers", (string)null);
+                    b.ToTable("QuestionAnswers");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.Quiz", b =>
@@ -399,7 +399,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Quizzes", (string)null);
+                    b.ToTable("Quizzes");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.QuizQuestion", b =>
@@ -421,7 +421,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("QuizId");
 
-                    b.ToTable("QuizQuestions", (string)null);
+                    b.ToTable("QuizQuestions");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.Result", b =>
@@ -452,7 +452,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Results", (string)null);
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("OnlineLearningPlatform.DAL.Entities.Track", b =>
@@ -478,7 +478,7 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tracks", (string)null);
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
