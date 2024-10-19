@@ -12,8 +12,8 @@ using OnlineLearningPlatform.DAL.Data;
 namespace OnlineLearningPlatform.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241019020949_initial migration")]
-    partial class initialmigration
+    [Migration("20241019165114_all-in-one")]
+    partial class allinone
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,6 +247,11 @@ namespace OnlineLearningPlatform.DAL.Migrations
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
