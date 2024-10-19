@@ -88,42 +88,5 @@ namespace OnlineLearningPlatform.UI.Controllers
          
         }
         #endregion
-
-
-        #region Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserName,Email,RegistrationDate,BirthDate")] ApplicationUser user)
-        {
-            if (ModelState.IsValid)
-            {
-                await _iUnitOfWork.ApplicationUsers.AddAsync(user);
-                _iUnitOfWork.Complete();
-                return RedirectToAction("Users", "Dashboard");
-            }
-            return View(user);
-        }
-        #endregion
-
-
-        #region DeleteCourse
-        public async Task<IActionResult> DeleteCourse(int userid,int courseId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var enrollment = await _iUnitOfWork.Enrollments.FindByExpress(e => e.ApplicationUserId == int.Parse(userId) && e.CourseId == courseId);
-
-            if (enrollment == null)
-            {
-                return NotFound("Enrollment not found.");
-            }
-             enrollmentRepository.Remove(userid,courseId);
-            return RedirectToAction("Profile");
-        }
-        #endregion
     }
 }

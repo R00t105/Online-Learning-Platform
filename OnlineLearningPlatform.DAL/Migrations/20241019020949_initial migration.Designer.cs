@@ -12,8 +12,8 @@ using OnlineLearningPlatform.DAL.Data;
 namespace OnlineLearningPlatform.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241013215342_all-tables")]
-    partial class alltables
+    [Migration("20241019020949_initial migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
